@@ -10,6 +10,8 @@ public class DogReturnHomeState : DogStateAbstract, IDogState
     {
         this.DogObjCtrl.DogInputMovement.ChangeSpeedData(this.StateType);
 
+        this.DogObjCtrl.DogCollisionController.UpdateCollisionByState(this.StateType);
+
         this.DogObjCtrl.DogModel.Play(DogAnimationState.Walk);
 
         this.DogObjCtrl.DogInputData.LastSeenPosition =

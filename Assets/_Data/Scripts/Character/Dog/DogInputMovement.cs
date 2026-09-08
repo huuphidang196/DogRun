@@ -15,6 +15,9 @@ public class DogInputMovement : ObjInputMovement
     [SerializeField] protected float _Speed_Patrol_Inspection = 1f; //Walk
     public float Speed_Patrol_Inspection => this._Speed_Patrol_Inspection;
 
+    [SerializeField] protected float _Speed_ReturnHome = 1f; //Walk
+    public float Speed_ReturnHome => this._Speed_ReturnHome;
+
     public virtual bool CheckInsidePatrolArea()
     {
         return InputManagerInstance.Instance.CheckInsidePatrolArea(this.DogObjCtrl.transform.position);
@@ -33,11 +36,13 @@ public class DogInputMovement : ObjInputMovement
                 this._Output_Velocity = new Vector2(this._Speed_Patrol_Inspection, 0);
                 break;
             case DogState.Inspect:       
-            case DogState.ReturnHome:
                 this._Output_Velocity = new Vector2(this._Speed_Inspection, 0);
                 break;
             case DogState.Chase:
                 this._Output_Velocity = new Vector2(this._Speed_Chase, 0);
+                break;
+            case DogState.ReturnHome:
+                this._Output_Velocity = new Vector2(this._Speed_ReturnHome, 0);
                 break;
             default:
                 break;

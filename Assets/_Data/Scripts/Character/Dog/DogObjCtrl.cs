@@ -20,6 +20,14 @@ public class DogObjCtrl : ObjCtrl
     [SerializeField] protected DogBrain _DogBrain;
     public DogBrain DogBrain => this._DogBrain;
 
+    [SerializeField] protected DogVision _DogVision;
+    public DogVision DogVision => this._DogVision;
+
+    [SerializeField] protected DogReceiver _DogReceiver;
+    public DogReceiver DogReceiver => this._DogReceiver;
+
+    [SerializeField] protected DogCollisionController _DogCollisionController;
+    public DogCollisionController DogCollisionController => this._DogCollisionController;
     public DogModel DogModel => this._ObjModel as DogModel;
    
     protected override void LoadComponents()
@@ -30,6 +38,23 @@ public class DogObjCtrl : ObjCtrl
         this.LoadDogInputData();
         this.LoadDogMovementNavigation();
         this.LoadDogBrain();
+        this.LoadDogVision();
+        this.LoadDogReceiver();
+        this.LoadDogCollisionController();
+    }
+
+    protected virtual void LoadDogCollisionController()
+    {
+        if (this._DogCollisionController != null) return;
+
+        this._DogCollisionController = GetComponentInChildren<DogCollisionController>();
+    }
+
+    protected virtual void LoadDogReceiver()
+    {
+        if (this._DogReceiver != null) return;
+
+        this._DogReceiver = GetComponentInChildren<DogReceiver>();
     }
 
     protected virtual void LoadDogInputData()
@@ -58,4 +83,12 @@ public class DogObjCtrl : ObjCtrl
 
         this._DogBrain = GetComponent<DogBrain>();
     }
+
+    protected virtual void LoadDogVision()
+    {
+        if (this._DogVision != null) return;
+
+        this._DogVision = GetComponentInChildren<DogVision>();
+    }
+
 }

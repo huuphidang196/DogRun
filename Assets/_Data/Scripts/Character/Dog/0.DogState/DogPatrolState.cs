@@ -10,9 +10,11 @@ public class DogPatrolState : DogStateAbstract, IDogState
     {
         this.DogObjCtrl.DogInputMovement.ChangeSpeedData(this.StateType);
 
+        this.DogObjCtrl.DogCollisionController.UpdateCollisionByState(this.StateType);
+
         this.DogObjCtrl.DogModel.Play(DogAnimationState.Walk);
 
-        this.DogObjCtrl.DogInputData.LastSeenPosition = this.GetRandomPointInPatrolArea();
+        this.DogObjCtrl.DogInputData.LastSeenPosition = InputManagerInstance.Instance.GetRandomPointInPatrolArea();
     }
 
     public void Tick()
@@ -46,13 +48,5 @@ public class DogPatrolState : DogStateAbstract, IDogState
 
     }
 
-    private Vector2 GetRandomPointInPatrolArea()
-    {
-        Bounds bounds = InputManagerInstance.Instance.PatrolArea.bounds;
-
-        float randomX = Random.Range(bounds.min.x + 1f, bounds.max.x - 1f);
-        float randomY = Random.Range(bounds.min.y + 1f, bounds.max.y - 1f);
-
-        return new Vector2(randomX, randomY);
-    }
+   
 }

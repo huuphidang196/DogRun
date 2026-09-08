@@ -14,6 +14,9 @@ public class ObjCtrl : StandMonoBehaviour
     [SerializeField] protected ObjModel _ObjModel;
     public ObjModel ObjModel => this._ObjModel;
 
+    [SerializeField] protected ObjDespawnAbstract _ObjDespawnAbstract;
+    public ObjDespawnAbstract ObjDespawnAbstract => this._ObjDespawnAbstract;
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -21,6 +24,14 @@ public class ObjCtrl : StandMonoBehaviour
         this.LoadObjInputMovement();
         this.LoadObjMovement();
         this.LoadObjModel();
+        this.LoadObjDespawnAbstract();
+    }
+
+    protected virtual void LoadObjDespawnAbstract()
+    {
+        if (this._ObjDespawnAbstract != null) return;
+
+        this._ObjDespawnAbstract = GetComponentInChildren<ObjDespawnAbstract>();
     }
 
     protected virtual void LoadObjModel()

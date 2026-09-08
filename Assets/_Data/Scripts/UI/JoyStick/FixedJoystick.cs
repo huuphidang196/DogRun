@@ -55,7 +55,7 @@ public class FixedJoystick : CanvasCameraBehaviour
 
     protected virtual void Update()
     {
-        InputManagerInstance.Instance.SetDirection(this.input);
+        GameDataManager.Instance.SetDirection(this.input);
     }
     public void Show(Vector2 anchoredPos)
     {

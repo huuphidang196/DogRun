@@ -1,16 +1,11 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class InputManagerInstance : Singleton<InputManagerInstance>
 {
-    [SerializeField] protected Vector2 _Player_Direction;
-
-    public Vector2 Player_Direction => _Player_Direction;
-
-    [SerializeField] protected bool isThrowInput = false;
-
     [SerializeField]
     private PolygonCollider2D m_PatrolArea;
     public PolygonCollider2D PatrolArea => this.m_PatrolArea;
@@ -29,35 +24,35 @@ public class InputManagerInstance : Singleton<InputManagerInstance>
         this.m_PatrolArea = transform.Find("Patrol_Area").GetComponent<PolygonCollider2D>();
     }
 
-    public virtual void SetDirection(Vector2 dir)
-    {
-        this._Player_Direction = dir;
-    }
-
-
-    #region OutSideReference
-    public bool IsPlayerThrow()
-    {
-        return this.isThrowInput;
-    }
-    public virtual void SetPlayerThrowInput(bool isThrow)
-    {
-        this.isThrowInput = isThrow;
-    }
-
-    public virtual float GetCooldownTimeByTypeButtonActive(TimeActiveButtonRight typeButtonActive)
-    {
-        switch (typeButtonActive)
-        {     
-            case TimeActiveButtonRight.Button_Throw:
-                return 3f;
-        }
-        return 0;
-    }
-
     public virtual bool CheckInsidePatrolArea(Vector2 obj_NeedChecked)
     {
-        return this.m_PatrolArea.bounds.Contains(obj_NeedChecked);
+        if (this.m_PatrolArea == null)
+            return false;
+
+        return this.m_PatrolArea.OverlapPoint(obj_NeedChecked);
     }
-    #endregion
+
+    public virtual Vector2 GetRandomPointInPatrolArea()
+    {
+        if (this.m_PatrolArea == null)
+            return Vector2.zero;
+
+        Vector2[] points = this.m_PatrolArea.points;
+
+        for (int i = 0; i < points.Length - 1; i++)
+        {
+            Vector2 a = points[Random.Range(0, points.Length)];
+            Vector2 b = points[Random.Range(0, points.Length)];
+            Vector2 c = points[Random.Range(0, points.Length)];
+
+            Vector2 center = (a + b + c) / 3f;
+
+            if (this.CheckInsidePatrolArea(center))
+                return center;
+        }
+
+
+        return new Vector2(33f, 30f);
+
+    }
 }

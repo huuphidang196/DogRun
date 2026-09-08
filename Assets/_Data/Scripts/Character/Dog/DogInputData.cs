@@ -22,4 +22,8 @@ public class DogInputData : StandMonoBehaviour
 
     public virtual void SetVisionLevel(VisionLevel visionLevel) => this._VisionLevel = visionLevel;
 
+    [SerializeField] protected float _Time_Stun = 3f;
+    public float Time_Stun => this._Time_Stun;
+
+
 }

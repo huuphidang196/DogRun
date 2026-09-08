@@ -10,8 +10,8 @@ public class ActiveUIButton : StandMonoBehaviour
     [SerializeField] protected Image _img_UI_Cooldown_Active;
     [SerializeField] protected float _cooldownTime = 5f;
 
-    protected float currentTime = 0f;
-    protected bool isCoolingDown = false;
+    [SerializeField] protected float currentTime = 0f;
+    [SerializeField] protected bool isCoolingDown = false;
     protected override void LoadComponents()
     {
         base.LoadComponents();

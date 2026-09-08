@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +9,8 @@ public class DogIdleState : DogStateAbstract, IDogState
     public void Enter()
     {
         this.DogObjCtrl.DogInputMovement.ChangeSpeedData(this.StateType);
+        
+        this.DogObjCtrl.DogCollisionController.UpdateCollisionByState(this.StateType); // 👉 thêm dòng này
 
         this.DogObjCtrl.DogModel.Play(DogAnimationState.Idle);
 

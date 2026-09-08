@@ -7,7 +7,6 @@ public class DogVision : DogCtrlAbstract
 {
     [Header("Layer")]
     [SerializeField] private LayerMask targetMask;
-
     [SerializeField] private LayerMask obstacleMask;
 
     [Header("View")]
@@ -15,31 +14,39 @@ public class DogVision : DogCtrlAbstract
 
     [Header("Range")]
     [SerializeField] private float inspectionRange = 12f;
-
     [SerializeField] private float chaseRange = 8f;
-
     [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float senseRange = 3f; // Khoảng cách "cảm nhận" (khứu giác/thính giác) - phát hiện bất kể hướng nhìn. Phải nhỏ hơn chaseRange.
 
     [SerializeField] private Transform _Vision_Point;
 
+    [SerializeField] private float scanInterval = 0.2f;
+    [SerializeField] private float _scanTimer;
+
+  
     protected override void LoadComponents()
     {
         base.LoadComponents();
-
         this.LoadVisionPoint();
     }
 
     protected virtual void LoadVisionPoint()
     {
         if (this._Vision_Point != null) return;
-
         this._Vision_Point = transform.Find("VisionPoint");
     }
 
-    protected override void Start()
+ 
+    protected virtual void Update()
     {
-        base.Start();
-        InvokeRepeating(nameof(ScanVision), 0f, 0.2f);
+        _scanTimer -= Time.deltaTime;
+
+        if (_scanTimer > 0f)
+            return;
+
+        _scanTimer = scanInterval;
+
+        ScanVision();
     }
 
     private void ScanVision()
@@ -55,37 +62,29 @@ public class DogVision : DogCtrlAbstract
             ClearTarget();
             return;
         }
-
         CheckTarget(target.transform);
     }
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
+  
 
-        Gizmos.DrawWireSphere(
-            transform.position,
-            inspectionRange);
-    }
     private void CheckTarget(Transform target)
     {
         Vector2 targetPos = target.position;
-
         Vector2 dir =
             (targetPos - (Vector2)this._Vision_Point.position).normalized;
-
         float distance =
             Vector2.Distance(
-              (Vector2)this._Vision_Point.position,
+                (Vector2)this._Vision_Point.position,
                 targetPos);
 
-        if (!this.CheckScopeFOV(dir)) return;
-        
+        if (!this.CheckScopeFOV(distance, dir)) return;
+
         RaycastHit2D hit =
             Physics2D.Raycast(
                 this._Vision_Point.position,
                 dir,
                 distance,
                 targetMask | obstacleMask);
+
         // Vẽ tia ray
         Debug.DrawRay(this._Vision_Point.position, dir * distance, Color.red);
 
@@ -96,20 +95,21 @@ public class DogVision : DogCtrlAbstract
         }
 
         this.DogObjCtrl.DogInputData.SetTarget(target);
-
-        this.DogObjCtrl.DogInputData.LastSeenPosition =
-            target.position;
-
+        this.DogObjCtrl.DogInputData.LastSeenPosition = target.position;
         UpdateRangeState(distance);
     }
 
-    private bool CheckScopeFOV(Vector2 dir)
+    private bool CheckScopeFOV(float distance, Vector2 dir)
     {
+        // 👉 Trong phạm vi "cảm nhận" gần - phát hiện bất kể hướng nhìn (ngửi/nghe thấy)
+        if (distance <= senseRange) return true;
+
         if (this.DogObjCtrl.DogInputData.VisionLevel != VisionLevel.None) return true;
+
         float angle =
-               Vector2.Angle(
-                   this.DogObjCtrl.DogMovementNavigation.GetFacingDirection(),
-                   dir);
+            Vector2.Angle(
+                this.DogObjCtrl.DogMovementNavigation.GetFacingDirection(),
+                dir);
 
         if (angle <= fovAngle * 0.5f) return true;
 
@@ -124,32 +124,23 @@ public class DogVision : DogCtrlAbstract
             this.DogObjCtrl.DogInputData.SetVisionLevel(VisionLevel.None);
             return;
         }
-
         if (distance <= attackRange)
         {
             this.DogObjCtrl.DogInputData.SetVisionLevel(VisionLevel.Attack);
             return;
         }
-
         if (distance <= chaseRange)
         {
             this.DogObjCtrl.DogInputData.SetVisionLevel(VisionLevel.Chase);
             return;
         }
-
         this.DogObjCtrl.DogInputData.SetVisionLevel(VisionLevel.Inspection);
-
-
     }
 
     private void ClearTarget()
     {
         this.DogObjCtrl.DogInputData.SetTarget(null);
-
         this.DogObjCtrl.DogInputData.SetVisionLevel(VisionLevel.None);
-
-      //  this.DogObjCtrl.DogInputData.LastSeenPosition = this._ObjCtrl.transform.position;
+        //  this.DogObjCtrl.DogInputData.LastSeenPosition = this._ObjCtrl.transform.position;
     }
-
-
 }

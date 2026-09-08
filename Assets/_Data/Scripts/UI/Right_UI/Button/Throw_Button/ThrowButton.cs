@@ -6,6 +6,6 @@ public class ThrowButton : ButtonUIStandard
 {
     protected override void OnClick()
     {
-        InputManagerInstance.Instance.SetPlayerThrowInput(true);
+        GameDataManager.Instance.SetPlayerThrowInput(true);
     }
 }

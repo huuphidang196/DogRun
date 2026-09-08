@@ -8,7 +8,7 @@ public class PlayerInputMovement : ObjInputMovement
 
     public override Vector2 OutputMovement()
     {
-        this._Output_Velocity = InputManagerInstance.Instance.IsPlayerThrow() ? Vector2.zero : InputManagerInstance.Instance.Player_Direction;
+        this._Output_Velocity = GameDataManager.Instance.IsPlayerThrow() ? Vector2.zero : GameDataManager.Instance.Player_Direction;
         return this._Output_Velocity * this._Speed;
     }
 }

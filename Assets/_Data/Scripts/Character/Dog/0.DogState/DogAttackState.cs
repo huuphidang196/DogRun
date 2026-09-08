@@ -10,6 +10,8 @@ public class DogAttackState : DogStateAbstract, IDogState
     {      
         this.DogObjCtrl.DogInputMovement.ChangeSpeedData(this.StateType);
 
+        this.DogObjCtrl.DogCollisionController.UpdateCollisionByState(this.StateType);
+
         this.DogObjCtrl.DogModel.Play(DogAnimationState.Attack);
     }
 

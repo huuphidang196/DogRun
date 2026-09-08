@@ -17,7 +17,8 @@ public class DogMovementNavigation : ObjMovement
 
     public Vector2 GetFacingDirection()
     {
-        return (this._Rig2D.velocity.sqrMagnitude > 0.01f) ? this._Rig2D.velocity.normalized : this.DogObjCtrl.transform.right;
+        float sign = Mathf.Sign(this.DogObjCtrl.DogModel.transform.localScale.x);
+        return new Vector2(sign, 0f);
     }
 
 }

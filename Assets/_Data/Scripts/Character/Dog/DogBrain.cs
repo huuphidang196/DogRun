@@ -18,12 +18,11 @@ public class DogBrain : DogCtrlAbstract
     public float MinIdleTime => minIdleTime;
     public float MaxIdleTime => maxIdleTime;
 
-    private float _wanderTimer_Idle;
-    public float WanderTimer => _wanderTimer_Idle;
+    private float _wanderTimer_State;
+    public float WanderTimer => _wanderTimer_State;
 
     private float _wanderDuration_Idle;
     public float WanderDuration => this._wanderDuration_Idle;
-
 
     #endregion
 
@@ -40,8 +39,15 @@ public class DogBrain : DogCtrlAbstract
         this._States.Clear();
 
         this._States.AddRange(GetComponentsInChildren<IDogState>(true));
+        Debug.Log("State: " + this._States.Count);
     }
 
+    protected override void LoadObjCtrl()
+    {
+        if (this._ObjCtrl != null) return;
+
+        this._ObjCtrl = transform.GetComponent<ObjCtrl>();
+    }
     public void ChangeState(IDogState newState)
     {
         if (newState == currentState) return;
@@ -55,7 +61,7 @@ public class DogBrain : DogCtrlAbstract
     }
     public virtual void ResetWander()
     {
-        _wanderTimer_Idle = 0f;
+        _wanderTimer_State = 0f;
         _wanderDuration_Idle = 0f;
     }
     public virtual void SetTimeDurationIdle()
@@ -72,6 +78,12 @@ public class DogBrain : DogCtrlAbstract
 
     protected virtual void ProcessState()
     {
+        if (this.DogObjCtrl.DogReceiver.IsStun)
+        {
+            this.ChangeState(this._States.Find(x => x.StateType == DogState.Stun));
+            this.ProcessStateStun();
+            return;
+        }
         if (this.DogObjCtrl.DogInputData.VisionLevel == VisionLevel.Attack)
         {
             this.ChangeState(this._States.Find(x => x.StateType == DogState.Attack));
@@ -89,7 +101,8 @@ public class DogBrain : DogCtrlAbstract
         }
         //None => 4 case : Idle, patrol, stun, return home
         //return home
-        if (!this.DogObjCtrl.DogInputData.HasTarget && !this.DogObjCtrl.DogInputMovement.CheckInsidePatrolArea())
+        Vector3 pos = this.DogObjCtrl.transform.position;
+        if (!this.DogObjCtrl.DogInputData.HasTarget && !this.DogObjCtrl.DogInputMovement.CheckInsidePatrolArea() || pos.x < -21f && pos.y > 21f)
         {
             this.ChangeState(this._States.Find(x => x.StateType == DogState.ReturnHome));
             return;
@@ -107,15 +120,22 @@ public class DogBrain : DogCtrlAbstract
 
     protected virtual void ProcessStateIdle()
     {
-        _wanderTimer_Idle += Time.deltaTime;
+        _wanderTimer_State += Time.deltaTime;
 
-        if (_wanderTimer_Idle >= _wanderDuration_Idle)
+        if (_wanderTimer_State >= _wanderDuration_Idle)
         {
             this.ChangeState(this._States.Find(x => x.StateType == DogState.Patrol));
         }
     }
-    
-   
+    protected virtual void ProcessStateStun()
+    {
+        _wanderTimer_State += Time.deltaTime;
+
+        if (_wanderTimer_State <= this.DogObjCtrl.DogInputData.Time_Stun) return;
+
+        this.DogObjCtrl.DogReceiver.ExitStunState();
+    }
+
 }
 public enum DogState
 {

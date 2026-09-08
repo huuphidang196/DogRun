@@ -14,6 +14,23 @@ public class DogModel : ObjMovementModel
     private DogAnimationState currentAnim =
         DogAnimationState.Idle;
 
+    [SerializeField] protected SpriteRenderer _SP;
+    public SpriteRenderer SpriteRenderer => this._SP;
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+
+        this.LoadSpriteRenderer();
+    }
+
+    protected virtual void LoadSpriteRenderer()
+    {
+        if (this._SP == null) return;
+
+        this._SP = GetComponent<SpriteRenderer>();
+    }
+
     public void Play(DogAnimationState state)
     {
         if (currentAnim == state)
@@ -34,6 +51,11 @@ public class DogModel : ObjMovementModel
         this.ProcessFlipModel();
     }
 
+    protected override void MoreProgressFlip()
+    {
+        //Flip with VisionPoint
+        this.DogObjCtrl.DogVision.transform.localScale = transform.localScale;
+    }
 }
 public enum DogAnimationState
 {

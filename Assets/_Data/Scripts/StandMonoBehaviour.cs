@@ -31,7 +31,7 @@ public class StandMonoBehaviour : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-
+        this.ResetValue();
     }
 
     protected virtual void OnDisable()

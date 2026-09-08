@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,19 +21,24 @@ public class ObjMovementModel : ObjModel
     }
 
     // ================= FLIP =================
+
     protected virtual void ProcessFlipModel()
     {
         if (Mathf.Abs(_moveInput.x) < 0.1f) return;
-
         int dir = _moveInput.x > 0 ? 1 : -1;
-
-        if (dir != _currentDir)
-        {
-            _currentDir = dir;
-        
-            Vector3 scale = transform.localScale;
-            transform.localScale = new Vector3(Mathf.Abs(scale.x) * dir, scale.y,0);
-          //  Debug.Log("scale: " + scale);
-        }
+        this.ApplyFlip(dir);
     }
+
+    // 👉 Tách riêng phần áp dụng flip, để class con dùng lại với nguồn "dir" khác
+    protected virtual void ApplyFlip(int dir)
+    {
+        if (dir == _currentDir) return;
+
+        _currentDir = dir;
+        Vector3 scale = transform.localScale;
+        transform.localScale = new Vector3(Mathf.Abs(scale.x) * dir, scale.y, 0);
+        this.MoreProgressFlip();
+    }
+
+    protected virtual void MoreProgressFlip() { }
 }

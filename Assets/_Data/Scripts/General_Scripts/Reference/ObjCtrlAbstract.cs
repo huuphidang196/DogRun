@@ -20,5 +20,9 @@ public class ObjCtrlAbstract : StandMonoBehaviour
         if (this._ObjCtrl != null) return;
 
         this._ObjCtrl = GetComponentInParent<ObjCtrl>();
+
+        if (this._ObjCtrl != null) return;
+
+        this._ObjCtrl = transform.parent.GetComponent<ObjCtrl>();
     }
 }

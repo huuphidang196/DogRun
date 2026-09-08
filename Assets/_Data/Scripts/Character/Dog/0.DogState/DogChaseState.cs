@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +10,7 @@ public class DogChaseState : DogStateAbstract, IDogState
     {
         // dogCtrl.Animation.SetRun();
         this.DogObjCtrl.DogInputMovement.ChangeSpeedData(this.StateType);
+        this.DogObjCtrl.DogCollisionController.UpdateCollisionByState(this.StateType); 
         this.DogObjCtrl.DogModel.Play(DogAnimationState.Run);
 
     }
