@@ -6364,7 +6364,7 @@ Transform:
   m_GameObject: {fileID: 499507060}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 32.9, y: 30.3, z: 0}
+  m_LocalPosition: {x: -40, y: 23.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -51522,13 +51522,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 922784465}
+  - component: {fileID: 922784472}
+  - component: {fileID: 922784471}
   - component: {fileID: 922784467}
   - component: {fileID: 922784466}
   - component: {fileID: 922784470}
   - component: {fileID: 922784469}
   - component: {fileID: 922784468}
-  - component: {fileID: 922784472}
-  - component: {fileID: 922784471}
   m_Layer: 15
   m_Name: Ground_Plant
   m_TagString: Untagged
@@ -56674,7 +56674,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def16906bfb6eec41b29f4bc4242aade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Plots: []
+  _Plots:
+  - Origin: {x: -40, y: 23, z: 0}
+    State: 0
+    CropSO: {fileID: 0}
+    GrowthStage: 0
+  - Origin: {x: -40, y: 26, z: 0}
+    State: 0
+    CropSO: {fileID: 0}
+    GrowthStage: 0
+  - Origin: {x: -40, y: 29, z: 0}
+    State: 0
+    CropSO: {fileID: 0}
+    GrowthStage: 0
+  - Origin: {x: -37, y: 23, z: 0}
+    State: 0
+    CropSO: {fileID: 0}
+    GrowthStage: 0
+  - Origin: {x: -37, y: 26, z: 0}
+    State: 0
+    CropSO: {fileID: 0}
+    GrowthStage: 0
+  - Origin: {x: -37, y: 29, z: 0}
+    State: 0
+    CropSO: {fileID: 0}
+    GrowthStage: 0
+  - Origin: {x: -34, y: 23, z: 0}
+    State: 0
+    CropSO: {fileID: 0}
+    GrowthStage: 0
+  - Origin: {x: -34, y: 26, z: 0}
+    State: 0
+    CropSO: {fileID: 0}
+    GrowthStage: 0
+  - Origin: {x: -34, y: 29, z: 0}
+    State: 0
+    CropSO: {fileID: 0}
+    GrowthStage: 0
   _List_CropSO:
   - {fileID: 11400000, guid: 30c70028b3bb6354eb5b3f4e690a7a71, type: 2}
   m_GroundPlant: {fileID: 922784471}
