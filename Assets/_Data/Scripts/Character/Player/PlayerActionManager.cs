@@ -39,14 +39,18 @@ public class PlayerActionManager : PlayerCtrlAbstract
 
     protected virtual void ProcessPlayerAction()
     {
-        this.Execute(PlayerActionType.Throw);
+        if (GameDataManager.Instance.IsPlayerThrow()) this.Execute(PlayerActionType.Throw);
+
     }
+    public virtual void UserWantToHarvest() => this.Execute(PlayerActionType.Plant);
 }
 public enum PlayerActionType
 {
     NoAction,
 
     Throw,
+    Plant,
+    Fishing
 }
 
 public interface IPlayerAction

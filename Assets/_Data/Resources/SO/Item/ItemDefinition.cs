@@ -9,4 +9,5 @@ public class ItemDefinition : ScriptableObject
     public ItemType ItemType;
     public bool Throwable;
     public Sprite Icon;
+
 }

@@ -39,7 +39,7 @@ public class DogBrain : DogCtrlAbstract
         this._States.Clear();
 
         this._States.AddRange(GetComponentsInChildren<IDogState>(true));
-        Debug.Log("State: " + this._States.Count);
+        //Debug.Log("State: " + this._States.Count);
     }
 
     protected override void LoadObjCtrl()

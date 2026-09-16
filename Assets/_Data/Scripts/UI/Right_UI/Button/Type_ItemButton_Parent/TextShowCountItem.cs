@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TextShowCountItem : BaseText
 {
-    [SerializeField] protected ButtonSelectItemThrowManager _ButtonManager; // lấy type từ đây, không khai báo field riêng
+    [SerializeField] protected ButtonSelectItemManager _ButtonManager; // lấy type từ đây, không khai báo field riêng
 
     protected override void LoadComponents()
     {
@@ -15,7 +15,7 @@ public class TextShowCountItem : BaseText
     protected virtual void LoadButtonManager()
     {
         if (this._ButtonManager != null) return;
-        this._ButtonManager = GetComponentInParent<ButtonSelectItemThrowManager>();
+        this._ButtonManager = GetComponentInParent<ButtonSelectItemManager>();
     }
 
     protected virtual void FixedUpdate()

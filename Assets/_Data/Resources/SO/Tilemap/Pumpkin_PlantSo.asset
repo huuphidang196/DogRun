@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43fd55fe6c4e1541890925f592a6e89, type: 3}
+  m_Name: Pumpkin_PlantSo
+  m_EditorClassIdentifier: 
+  CropType: 2
+  SeedTile: {fileID: 11400000, guid: 7f0678ecb7629a543ad14e5b4097f375, type: 2}
+  GrowingTile: {fileID: 11400000, guid: f65522cd471fbd14cb587948527b20a9, type: 2}
+  MatureTile: {fileID: 11400000, guid: 5e7db344f4bfee34db13c12fc228c401, type: 2}
+  GrowTime: 10
+  MinHarvestAmount: 4
+  MaxHarvestAmount: 6

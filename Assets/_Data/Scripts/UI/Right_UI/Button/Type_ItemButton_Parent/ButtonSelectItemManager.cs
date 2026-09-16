@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonSelectItemThrowManager : StandMonoBehaviour
+public class ButtonSelectItemManager : StandMonoBehaviour
 {
     [SerializeField] protected ItemType _ItemType;
     public ItemType ItemType => this._ItemType;

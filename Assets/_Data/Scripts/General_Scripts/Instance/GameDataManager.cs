@@ -10,6 +10,8 @@ public class GameDataManager : Singleton<GameDataManager>
 
     [SerializeField] protected bool isThrowInput = false;
 
+    [SerializeField] protected ItemType _CropPlantUsing;
+    public ItemType CropPlantUsing => _CropPlantUsing;
     public virtual void SetDirection(Vector2 dir)
     {
         this._Player_Direction = dir;
@@ -35,5 +37,6 @@ public class GameDataManager : Singleton<GameDataManager>
         return 0;
     }
 
+    public virtual void SetCropPlantUsing(ItemType itemType) => this._CropPlantUsing = itemType;
     #endregion
 }

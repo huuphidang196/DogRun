@@ -111,6 +111,28 @@ public class PlayerInventory : PlayerCtrlAbstract
     {
         return items.Exists(item => item.ItemDefinitionSO.Throwable && item.Amount > 0);
     }
+
+    public virtual bool HasPlantableItem()
+    {
+        foreach (ItemData item in items)
+        {
+            if (item == null || item.Amount <= 0)
+                continue;
+
+            if (item.ItemDefinitionSO.Throwable)
+                continue;
+
+            switch (item.ItemDefinitionSO.ItemType)
+            {
+                case ItemType.RiceSeeds:
+                case ItemType.CabbageSeeds:
+                case ItemType.PumpkinSeeds:
+                    return true;
+            }
+        }
+
+        return false;
+    }
 }
 
 [System.Serializable]
@@ -140,4 +162,11 @@ public enum ItemType
     Banana,
     Fish,
 
+    RiceSeeds,
+    CabbageSeeds,
+    PumpkinSeeds,
+
+    HarvestedRice,
+    HarvestedPumpkin,
+    HarvestedCabbage
 }

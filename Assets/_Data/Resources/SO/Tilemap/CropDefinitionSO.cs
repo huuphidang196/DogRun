@@ -15,6 +15,11 @@ public class CropDefinitionSO : ScriptableObject
     public TileBase MatureTile;
 
     public float GrowTime;
+
+    public int MinHarvestAmount;
+    public int MaxHarvestAmount;
+
+    public int HarvestAmount => Random.Range(this.MinHarvestAmount, this.MaxHarvestAmount + 1);
 }
 public enum CropType
 {

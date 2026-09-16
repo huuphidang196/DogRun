@@ -12,19 +12,20 @@ public class PlotData
 
     public CropDefinitionSO CropSO;
 
-    public int GrowthStage;
+    public GrowthStage GrowthStage;
+
+    public float GrowTimer;
 }
 public enum PlotState
 {
-    Empty,          // Chưa cuốc
-    Plowed,         // Đã cuốc đất
-    Growing,        // Đang trồng
-    Harvestable     // Có thể thu hoạch
+    Empty = 0,          // Chưa cuốc
+    Plowed = 1,         // Đã cuốc đất
+    Growing = 2,        // Đang trồng
+    Harvestable = 3     // Có thể thu hoạch
 }
-public enum HighlightType
+public enum GrowthStage
 {
-    None,
-    EmptyPlot,
-    Plant,
-    Harvest
+    Seed = 0,
+    Growing = 1,
+    Mature = 2,
 }

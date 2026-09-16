@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0dd2ffb9de148524d8e4ef2ee8e550cf, type: 3}
-  m_Name: Slipper
+  m_Name: 4.RiceSeeds
   m_EditorClassIdentifier: 
-  ItemType: 1
-  Throwable: 1
-  Icon: {fileID: 0}
+  ItemType: 4
+  Throwable: 0
+  Icon: {fileID: 98671399, guid: 26283aa3ceba30a46aca7de7bb9ba5dd, type: 3}

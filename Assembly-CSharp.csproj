@@ -65,7 +65,6 @@
     <Compile Include="Assets\_Data\Scripts\Character\Dog\0.DogState\DogStunState.cs" />
     <Compile Include="Assets\_Data\Scripts\Character\Player\PlayerActionManager.cs" />
     <Compile Include="Assets\_Data\Scripts\Character\Player\Action\PlayerThrowItemAction.cs" />
-    <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Button\Type_ItemButton_Parent\ButtonSelectItemThrowManager.cs" />
     <Compile Include="Assets\_Data\Scripts\UI\JoyStick\CanvasCameraBehaviour.cs" />
     <Compile Include="Assets\_Data\Scripts\UI\Camera\CameraFollower.cs" />
     <Compile Include="Assets\Cainos\Pixel Art Platformer - Village Props\Script\Elevator.cs" />
@@ -77,9 +76,12 @@
     <Compile Include="Assets\_Data\Scripts\Character\Player\PlayerCtrl.cs" />
     <Compile Include="Assets\_Data\Scripts\Character\Dog\0.DogState\DogReturnHomeState.cs" />
     <Compile Include="Assets\_Data\Scripts\Character\Player\PlayerInventory.cs" />
+    <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Button\Type_ItemButton_Parent\UITypeItemButtonThrowParent.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\HideIfAttribute.cs" />
+    <Compile Include="Assets\_Data\Scripts\Character\Player\Action\PlayerPlantManager.cs" />
     <Compile Include="Assets\_Data\Scripts\UI\JoyStick\FixedJoystick.cs" />
     <Compile Include="Assets\_Data\Scripts\General_Scripts\Instance\1.Spawner\PlayerWeaponSpawner.cs" />
+    <Compile Include="Assets\_Data\Scripts\Tilemap_SC\0.Ground_Plant\PlotHightLightPlant.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\EnableIfAttribute.cs" />
     <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Reference\ButtonUIStandard.cs" />
     <Compile Include="Assets\_Data\Scripts\Character\Player\Action\PlayerActionManagerAbstract.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Assets\_Data\Scripts\General_Scripts\Instance\1.Spawner\Spawner.cs" />
     <Compile Include="Assets\_Data\Scripts\Character\Dog\DogModel.cs" />
     <Compile Include="Assets\Cainos\Pixel Art Top Down - Basic\Script\SpriteColorAnimation.cs" />
+    <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Button\Type_ItemButton_Parent\UITypeItemButtonPlantParent.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\ShowIfAttribute.cs" />
     <Compile Include="Assets\_Data\Scripts\General_Scripts\Reference\ObjCtrlAbstract.cs" />
     <Compile Include="Assets\_Data\Scripts\Character\Dog\DogBrain.cs" />
@@ -158,6 +161,7 @@
     <Compile Include="Assets\_Data\Scripts\General_Scripts\Reference\ObjReceiver.cs" />
     <Compile Include="Assets\Cainos\Pixel Art Top Down - Basic\Script\StairsLayerTrigger.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\DisableInEditModeAttribute.cs" />
+    <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Button\Type_ItemButton_Parent\ButtonSelectItemManager.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\ValidateInputAttribute.cs" />
     <Compile Include="Assets\_Data\Scripts\General_Scripts\Reference\ObjDespawnByTime.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\LabelWidthAttribute.cs" />

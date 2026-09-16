@@ -1,15 +1,39 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class GroundPlant : MonoBehaviour
+public class GroundPlant : StandMonoBehaviour
 {
-    [SerializeField] private Tilemap m_Tilemap;
+    [SerializeField] protected FarmingPlantManager _FarmingPlantManager;
+    [SerializeField] private Tilemap _Tilemap;
+    public Tilemap Tilemap_Plant => this._Tilemap;
 
     private const int PlotSize = 3;
 
-    public virtual void Plant(Vector3Int origin, CropDefinitionSO crop, int growthStage)
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+
+        this.LoadFarmingPlantManager();
+        this.LoadTilemapPlant();
+    }
+
+    protected virtual void LoadTilemapPlant()
+    {
+        if (this._Tilemap != null) return;
+
+        this._Tilemap = GetComponent<Tilemap>();
+    }
+
+    protected virtual void LoadFarmingPlantManager()
+    {
+        if (this._FarmingPlantManager != null) return;
+
+        this._FarmingPlantManager = GetComponentInParent<FarmingPlantManager>();
+    }
+    public virtual void Plant(Vector3Int origin, CropDefinitionSO crop, GrowthStage growthStage)
     {
         if (crop == null)
             return;
@@ -25,18 +49,18 @@ public class GroundPlant : MonoBehaviour
             {
                 Vector3Int cell = origin + new Vector3Int(x, y, 0);
 
-                m_Tilemap.SetTile(cell, tiles);
+                _Tilemap.SetTile(cell, tiles);
             }
         }
     }
 
-    private TileBase GetStageTiles(CropDefinitionSO crop, int growthStage)
+    private TileBase GetStageTiles(CropDefinitionSO crop, GrowthStage growthStage)
     {
         return growthStage switch
         {
-            0 => crop.SeedTile,
-            1 => crop.GrowingTile,
-            2 => crop.MatureTile,
+            GrowthStage.Seed => crop.SeedTile,
+            GrowthStage.Growing => crop.GrowingTile,
+            GrowthStage.Mature => crop.MatureTile,
             _ => null
         };
     }
@@ -49,23 +73,27 @@ public class GroundPlant : MonoBehaviour
             {
                 Vector3Int cell = origin + new Vector3Int(x, y, 0);
 
-                m_Tilemap.SetTile(cell, null);
+                _Tilemap.SetTile(cell, null);
             }
         }
     }
 
-    public virtual void SetPlotAlpha(Vector3Int origin, float alpha)
+    public virtual void ChangePlotStateByUserAction()
     {
-        Color color = new Color(1f, 1f, 1f, alpha);
+        //Certainly user can change state
 
-        for (int y = 0; y < PlotSize; y++)
+        if (this._FarmingPlantManager.CurrentPlotData.State >= PlotState.Harvestable)
         {
-            for (int x = 0; x < PlotSize; x++)
-            {
-                Vector3Int cell = origin + new Vector3Int(x, y, 0);
-
-                m_Tilemap.SetColor(cell, color);
-            }
+            PlayerCtrl.Instance.PlayerActionManager.UserWantToHarvest();
+            return;
         }
+
+        this._FarmingPlantManager.CurrentPlotData.State = (PlotState)((int)this._FarmingPlantManager.CurrentPlotData.State + 1);
+
+        //Plant
+        PlotData currentPlot = this._FarmingPlantManager.CurrentPlotData;
+       // if (currentPlot.CropSO == null) currentPlot.CropSO = 
+        this.Plant(currentPlot.Origin, currentPlot.CropSO, currentPlot.GrowthStage);
+
     }
 }

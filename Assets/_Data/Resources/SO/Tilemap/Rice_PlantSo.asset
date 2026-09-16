@@ -16,4 +16,6 @@ MonoBehaviour:
   SeedTile: {fileID: 11400000, guid: 7f0678ecb7629a543ad14e5b4097f375, type: 2}
   GrowingTile: {fileID: 11400000, guid: e73a5772d37bd614dbef9b014ee53411, type: 2}
   MatureTile: {fileID: 11400000, guid: 6cb93c79a3b59ab4eaf3fa8eb161f394, type: 2}
-  GrowTime: 5
+  GrowTime: 15
+  MinHarvestAmount: 6
+  MaxHarvestAmount: 9

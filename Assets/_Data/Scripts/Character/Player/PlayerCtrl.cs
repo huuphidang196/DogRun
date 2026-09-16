@@ -12,6 +12,9 @@ public class PlayerCtrl : ObjCtrl
 
     public PlayerModel PlayerModel => this._ObjModel as PlayerModel;
 
+    [SerializeField] protected PlayerActionManager _PlayerActionManager;
+    public PlayerActionManager PlayerActionManager => this._PlayerActionManager;
+
     protected override void Awake()
     {
         base.Awake();
@@ -25,6 +28,14 @@ public class PlayerCtrl : ObjCtrl
         base.LoadComponents();
 
         this.LoadPlayerInventory();
+        this.LoadPlayerActionManager();
+    }
+
+    protected virtual void LoadPlayerActionManager()
+    {
+        if (this._PlayerActionManager != null) return;
+
+        this._PlayerActionManager = GetComponentInChildren<PlayerActionManager>();
     }
 
     protected virtual void LoadPlayerInventory()

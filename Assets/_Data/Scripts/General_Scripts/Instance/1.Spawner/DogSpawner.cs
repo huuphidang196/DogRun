@@ -21,7 +21,7 @@ public class DogSpawner : Spawner<DogSpawner>
 
 
         Transform dog = SpawnObject(nameDog, InputManagerInstance.Instance.GetRandomPointInPatrolArea());
-        Debug.Log(InputManagerInstance.Instance.GetRandomPointInPatrolArea());
+    //    Debug.Log(InputManagerInstance.Instance.GetRandomPointInPatrolArea());
         DogObjCtrl dogObjCtrl = dog.GetComponent<DogObjCtrl>();
 
         if (dogObjCtrl == null) return;
