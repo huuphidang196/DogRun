@@ -42,7 +42,7 @@ public class PlayerActionManager : PlayerCtrlAbstract
         if (GameDataManager.Instance.IsPlayerThrow()) this.Execute(PlayerActionType.Throw);
 
     }
-    public virtual void UserWantToHarvest() => this.Execute(PlayerActionType.Plant);
+    public virtual void UserWantToChangeStateCurrentPlot() => this.Execute(PlayerActionType.Plant);
 }
 public enum PlayerActionType
 {

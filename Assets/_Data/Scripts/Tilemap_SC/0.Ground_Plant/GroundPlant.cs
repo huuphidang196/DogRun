@@ -82,18 +82,8 @@ public class GroundPlant : StandMonoBehaviour
     {
         //Certainly user can change state
 
-        if (this._FarmingPlantManager.CurrentPlotData.State >= PlotState.Harvestable)
-        {
-            PlayerCtrl.Instance.PlayerActionManager.UserWantToHarvest();
-            return;
-        }
-
-        this._FarmingPlantManager.CurrentPlotData.State = (PlotState)((int)this._FarmingPlantManager.CurrentPlotData.State + 1);
-
-        //Plant
-        PlotData currentPlot = this._FarmingPlantManager.CurrentPlotData;
-       // if (currentPlot.CropSO == null) currentPlot.CropSO = 
-        this.Plant(currentPlot.Origin, currentPlot.CropSO, currentPlot.GrowthStage);
+        PlayerCtrl.Instance.PlayerActionManager.UserWantToChangeStateCurrentPlot();
+     
 
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 public class FarmingPlantManager : Singleton<FarmingPlantManager>
 {
     [SerializeField] protected List<CropDefinitionSO> _List_CropSO = new();
+    public CropDefinitionSO CropSO_Needed(CropType cropType) => this._List_CropSO.Find(x => x.CropType == cropType);
 
     [SerializeField] protected List<PlotData> _Plots;
     private const int Count_Plot = 3;
@@ -60,7 +61,7 @@ public class FarmingPlantManager : Singleton<FarmingPlantManager>
             for (int j = 0; j < Count_Plot; j++)
             {
                 PlotData plot = new PlotData();
-                plot.Origin = new Vector3Int(-40 + 6 * i, 24 + 6 * j, 0);
+                plot.Origin = new Vector3Int(-40 + 6 * i, 22 + 6 * j, 0);
                 plot.State = PlotState.Empty;
                 plot.CropSO = null;
                 plot.GrowthStage = 0;
@@ -149,6 +150,8 @@ public class FarmingPlantManager : Singleton<FarmingPlantManager>
                     plot.GrowthStage = GrowthStage.Mature;
                     plot.State = PlotState.Harvestable;
                 }
+                // if (currentPlot.CropSO == null) currentPlot.CropSO = 
+                this.GroundPlant.Plant(plot.Origin, plot.CropSO, plot.GrowthStage);
             }
         }
     }

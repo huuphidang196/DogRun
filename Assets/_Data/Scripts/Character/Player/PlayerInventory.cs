@@ -6,6 +6,7 @@ using System;
 public class PlayerInventory : PlayerCtrlAbstract
 {
     [SerializeField] protected List<ItemData> items;
+    public event System.Action<ItemType> OnItemAmountChanged;
 
     protected override void OnEnable()
     {
@@ -53,24 +54,25 @@ public class PlayerInventory : PlayerCtrlAbstract
 
     public void AddItem(ItemType type, int amount = 1)
     {
-        ItemData item =
-        items.Find(x =>
+        ItemData item = items.Find(x =>
             x.ItemDefinitionSO.ItemType == type);
 
         if (item == null)
             return;
 
         item.Amount += amount;
+
+        OnItemAmountChanged?.Invoke(type);
     }
+
     //------------------------------------
     // Remove
     //------------------------------------
 
     public bool RemoveItem(ItemType type, int amount = 1)
     {
-        ItemData item =
-            items.Find(x =>
-                x.ItemDefinitionSO.ItemType == type);
+        ItemData item = items.Find(x =>
+            x.ItemDefinitionSO.ItemType == type);
 
         if (item == null)
             return false;
@@ -79,6 +81,8 @@ public class PlayerInventory : PlayerCtrlAbstract
             return false;
 
         item.Amount -= amount;
+
+        OnItemAmountChanged?.Invoke(type);
 
         return true;
     }

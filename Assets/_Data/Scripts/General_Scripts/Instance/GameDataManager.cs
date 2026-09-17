@@ -12,6 +12,7 @@ public class GameDataManager : Singleton<GameDataManager>
 
     [SerializeField] protected ItemType _CropPlantUsing;
     public ItemType CropPlantUsing => _CropPlantUsing;
+
     public virtual void SetDirection(Vector2 dir)
     {
         this._Player_Direction = dir;
