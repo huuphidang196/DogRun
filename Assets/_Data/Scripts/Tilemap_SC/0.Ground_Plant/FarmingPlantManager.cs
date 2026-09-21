@@ -19,7 +19,7 @@ public class FarmingPlantManager : Singleton<FarmingPlantManager>
 
     [SerializeField] protected PolygonCollider2D m_FarmArea;
 
-    [SerializeField] protected float m_HighlightDistance = 2f;
+    [SerializeField] protected float m_HighlightDistance = 2.8f;
 
     [SerializeField] protected PlotData _CurrentPlot;
     public PlotData CurrentPlotData => this._CurrentPlot;
@@ -96,7 +96,7 @@ public class FarmingPlantManager : Singleton<FarmingPlantManager>
 
         this.UpdateCropGrowth();
 
-        this.CheckPlayerPlot();
+        this.CheckPlayerPlotWantChangeState();
 
         if (this._PlotHightLightPlant.gameObject.activeInHierarchy == (_CurrentPlot != null)) return;
 
@@ -157,7 +157,7 @@ public class FarmingPlantManager : Singleton<FarmingPlantManager>
     }
 
     public virtual bool CheckPlayerInPlot() => this.m_FarmArea.OverlapPoint(PlayerCtrl.Instance.transform.position);
-    public virtual void CheckPlayerPlot()
+    public virtual void CheckPlayerPlotWantChangeState()
     {
         Vector2 playerPos = PlayerCtrl.Instance.transform.position;
 
@@ -182,7 +182,7 @@ public class FarmingPlantManager : Singleton<FarmingPlantManager>
 
             float distance = Vector2.Distance(playerPos, plotCenter);
 
-            if (distance <= m_HighlightDistance && distance < minDistance)
+            if (distance <= m_HighlightDistance && distance < minDistance && distance >= 2f)
             {
                 minDistance = distance;
                 nearestPlot = plot;

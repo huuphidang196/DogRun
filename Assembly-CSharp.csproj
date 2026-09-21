@@ -69,6 +69,7 @@
     <Compile Include="Assets\_Data\Scripts\UI\JoyStick\CanvasCameraBehaviour.cs" />
     <Compile Include="Assets\_Data\Scripts\UI\Camera\CameraFollower.cs" />
     <Compile Include="Assets\Cainos\Pixel Art Platformer - Village Props\Script\Elevator.cs" />
+    <Compile Include="Assets\_Data\Scripts\Tilemap_SC\0.Ground_Plant\PlotHighLightCountFly.cs" />
     <Compile Include="Assets\_Data\Scripts\General_Scripts\Reference\ObjModel.cs" />
     <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Reference\ActiveUIButton.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\TitleHeaderAttribute.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Assets\_Data\Scripts\Character\Dog\0.DogState\DogStateAbstract.cs" />
     <Compile Include="Assets\_Data\Scripts\Character\Dog\0.DogState\DogCollisionController.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Enum.cs" />
+    <Compile Include="Assets\_Data\Scripts\Tilemap_SC\0.Ground_Plant\FarmingPlantAbstract.cs" />
     <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Reference\BaseText.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\ShowInInspectorAttribute.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\SectionHeaderAttribute.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Button\Type_ItemButton_Parent\TextShowCountItem.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\AssetsOnlyAttribute.cs" />
     <Compile Include="Assets\_Data\Scripts\Character\Dog\DogObjCtrl.cs" />
+    <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Button\UIBottomPlantManager.cs" />
     <Compile Include="Assets\_Data\Scripts\Item\Item_Throwable\ItemThrowableInteraction.cs" />
     <Compile Include="Assets\_Data\Scripts\Character\Dog\DogInputData.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\BlockquoteAttribute.cs" />

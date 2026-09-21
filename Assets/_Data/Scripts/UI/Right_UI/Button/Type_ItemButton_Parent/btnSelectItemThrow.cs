@@ -30,5 +30,6 @@ public class btnSelectItemThrow : ButtonUIStandard
     {
         if (this._Parent == null || this._ButtonManager == null) return;
         this._Parent.SelectItem(this._ButtonManager.ItemType);
+       // Debug.Log(this._ButtonManager.ItemType.ToString());
     }
 }

@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class GroundPlant : StandMonoBehaviour
+public class GroundPlant : FarmingPlantAbstract
 {
-    [SerializeField] protected FarmingPlantManager _FarmingPlantManager;
     [SerializeField] private Tilemap _Tilemap;
     public Tilemap Tilemap_Plant => this._Tilemap;
 
@@ -15,8 +14,6 @@ public class GroundPlant : StandMonoBehaviour
     protected override void LoadComponents()
     {
         base.LoadComponents();
-
-        this.LoadFarmingPlantManager();
         this.LoadTilemapPlant();
     }
 
@@ -25,13 +22,6 @@ public class GroundPlant : StandMonoBehaviour
         if (this._Tilemap != null) return;
 
         this._Tilemap = GetComponent<Tilemap>();
-    }
-
-    protected virtual void LoadFarmingPlantManager()
-    {
-        if (this._FarmingPlantManager != null) return;
-
-        this._FarmingPlantManager = GetComponentInParent<FarmingPlantManager>();
     }
     public virtual void Plant(Vector3Int origin, CropDefinitionSO crop, GrowthStage growthStage)
     {
@@ -82,7 +72,7 @@ public class GroundPlant : StandMonoBehaviour
     {
         //Certainly user can change state
 
-        PlayerCtrl.Instance.PlayerActionManager.UserWantToChangeStateCurrentPlot();
+            PlayerCtrl.Instance.PlayerActionManager.UserWantToChangeStateCurrentPlot();
      
 
     }

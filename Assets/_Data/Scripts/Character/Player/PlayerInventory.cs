@@ -6,7 +6,9 @@ using System;
 public class PlayerInventory : PlayerCtrlAbstract
 {
     [SerializeField] protected List<ItemData> items;
-    public event System.Action<ItemType> OnItemAmountChanged;
+    public ItemData GetItemDateByType(ItemType type) => items.Find(x => x.ItemDefinitionSO.ItemType == type);
+
+    public event System.Action<ItemType, int> OnItemAmountChanged;
 
     protected override void OnEnable()
     {
@@ -62,7 +64,7 @@ public class PlayerInventory : PlayerCtrlAbstract
 
         item.Amount += amount;
 
-        OnItemAmountChanged?.Invoke(type);
+        OnItemAmountChanged?.Invoke(type, amount);
     }
 
     //------------------------------------
@@ -82,7 +84,7 @@ public class PlayerInventory : PlayerCtrlAbstract
 
         item.Amount -= amount;
 
-        OnItemAmountChanged?.Invoke(type);
+        OnItemAmountChanged?.Invoke(type, -1 * amount);
 
         return true;
     }
@@ -171,6 +173,6 @@ public enum ItemType
     PumpkinSeeds,
 
     HarvestedRice,
+    HarvestedCabbage,
     HarvestedPumpkin,
-    HarvestedCabbage
 }

@@ -34,7 +34,7 @@ public class UITypeItemButtonPlantParent : UITypeItemButtonParent
     // INVENTORY CHANGED
     // ============================================
 
-    protected virtual void OnItemAmountChanged(ItemType type)
+    protected virtual void OnItemAmountChanged(ItemType type, int amount)
     {
         RefreshButtons();
 

@@ -3,20 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlotHightLightPlant : StandMonoBehaviour
+public class PlotHightLightPlant : FarmingPlantAbstract
 {
-    [SerializeField] protected FarmingPlantManager _FarmingPlantManager;
-
     [SerializeField] protected Transform UI_Type_Action_Plant;
     [SerializeField] protected BoxCollider2D _StateArea;
+    [SerializeField] protected PlotHighLightCountFly _PlotHighLightCountFly;
     protected override void LoadComponents()
     {
         base.LoadComponents();
 
-        this.LoadFarmingPlantManager();
         this.LoadUITypeActionPlant();
         this.LoadCollider2DStateArea();
+        this.LoadPlotHighLightCountFly();
     }
+    protected virtual void LoadPlotHighLightCountFly()
+    {
+        if (this._PlotHighLightCountFly != null) return;
+
+        this._PlotHighLightCountFly = GetComponentInChildren<PlotHighLightCountFly>();
+     }
 
     protected virtual void LoadCollider2DStateArea()
     {
@@ -32,12 +37,6 @@ public class PlotHightLightPlant : StandMonoBehaviour
         this.UI_Type_Action_Plant = transform.Find("UI_Type_Action_Plant");
     }
 
-    protected virtual void LoadFarmingPlantManager()
-    {
-        if (this._FarmingPlantManager != null) return;
-
-        this._FarmingPlantManager = GetComponentInParent<FarmingPlantManager>();
-    }
 
     private void Update()
     {
@@ -64,7 +63,6 @@ public class PlotHightLightPlant : StandMonoBehaviour
     {
         //user want to change state
         this._FarmingPlantManager.GroundPlant.ChangePlotStateByUserAction();
-
     }
 
     protected virtual void UpdateElementsHightLightChangeState()
