@@ -22,7 +22,7 @@ public class ButtonSwapManager : ButtonSelectItemManager
     protected virtual void LoadImageWantChanging()
     {
         if (this._Image_WantChanging != null) return;
-        this._Image_WantChanging = transform.Find("Image_Wanted").GetComponentInChildren<Image>();
+        this._Image_WantChanging = transform.Find("Image_Rep_Item_Swicth").GetComponentInChildren<Image>();
     }
     protected virtual void LoadParent()
     {

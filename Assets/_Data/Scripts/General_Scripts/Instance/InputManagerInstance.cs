@@ -17,6 +17,7 @@ public class InputManagerInstance : Singleton<InputManagerInstance>
         this.LoadPatrolArea();
     }
 
+
     private void LoadPatrolArea()
     {
         if (this.m_PatrolArea != null) return;
@@ -55,4 +56,5 @@ public class InputManagerInstance : Singleton<InputManagerInstance>
         return new Vector2(33f, 30f);
 
     }
+
 }

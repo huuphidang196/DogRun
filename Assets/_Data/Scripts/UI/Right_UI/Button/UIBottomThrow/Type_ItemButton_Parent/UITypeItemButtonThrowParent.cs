@@ -7,12 +7,21 @@ public class UITypeItemButtonThrowParent : UITypeItemButtonParent
 {
     [SerializeField] protected UIBottomThrowManager _UIBottomThrowManager;
     [SerializeField] protected List<Sprite> _Sprites_Throw_Item;
+    [SerializeField] protected ButtonSelectItemManager _Fish_ItemSelected_Manager;
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
 
         this.LoadUIBottomThrowManager();
+        this.LoadButtonSelectFishingManager();
+    }
+
+    protected virtual void LoadButtonSelectFishingManager()
+    {
+        if (this._Fish_ItemSelected_Manager != null) return;
+
+        this._Fish_ItemSelected_Manager = GetComponentInParent<ButtonSelectItemManager>();
     }
 
     protected virtual void LoadUIBottomThrowManager()
@@ -28,9 +37,9 @@ public class UITypeItemButtonThrowParent : UITypeItemButtonParent
         if (type == ItemType.Fish) return;
 
         if (!PlayerCtrl.Instance.PlayerInventory.HasItem(type)) return;
-     
+
         this._CurrentSelected = type;
-     
+
         // 1. Báo cho Spawner biết loại item đang chọn
         PlayerWeaponSpawner.Instance.SelectThrowItem(type);
 
@@ -47,4 +56,6 @@ public class UITypeItemButtonThrowParent : UITypeItemButtonParent
 
         return this._Sprites_Throw_Item[1];
     }
+
+   
 }

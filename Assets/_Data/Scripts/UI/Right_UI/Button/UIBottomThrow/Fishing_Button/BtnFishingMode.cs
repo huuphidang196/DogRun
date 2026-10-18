@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThrowButton : ButtonUIStandard
+public class BtnFishingMode : ButtonUIStandard
 {
     protected override void OnClick()
     {
-        GameDataManager.Instance.SetPlayerThrowInput(true);
+        AreaManager.Instance.LakeFishingManager.SetAutoFishing();
     }
 }

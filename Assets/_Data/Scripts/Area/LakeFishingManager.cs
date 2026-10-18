@@ -6,8 +6,8 @@ using UnityEngine;
 public class LakeFishingManager : StandMonoBehaviour
 {
     [SerializeField] protected PolygonCollider2D _Fishing_Area_Collider;
-    [SerializeField] protected bool isIntoFishing = false;
-
+    [SerializeField] protected bool isAutoFishing = false;
+    public bool IsAutoFishing => this.isAutoFishing;
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -23,5 +23,7 @@ public class LakeFishingManager : StandMonoBehaviour
     }
 
     public virtual bool CheckPlayerInPlotFishingArea() => this._Fishing_Area_Collider.OverlapPoint(PlayerCtrl.Instance.transform.position);
+
+    public virtual bool SetAutoFishing() => this.isAutoFishing = !this.isAutoFishing;
 
 }

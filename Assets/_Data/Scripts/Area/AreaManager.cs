@@ -9,6 +9,7 @@ public class AreaManager : Singleton<AreaManager>
 
     public LakeFishingManager LakeFishingManager => _LakeFishingManager;
 
+    
     protected override void LoadComponents()
     {
         base.LoadComponents();
