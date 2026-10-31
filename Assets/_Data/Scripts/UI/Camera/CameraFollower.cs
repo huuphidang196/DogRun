@@ -10,6 +10,12 @@ public class CameraFollower : StandMonoBehaviour
     [Tooltip("Thời gian camera đạt tới mục tiêu")]
     [SerializeField] private float smoothTime = 0.2f;
 
+    [Header("Camera Bounds")]
+    [SerializeField] private float minX = -31f;
+    [SerializeField] private float maxX = 31f;
+    [SerializeField] private float minY = -24f;
+    [SerializeField] private float maxY = 18f;
+
     private Vector3 velocity = Vector3.zero;
 
     private void LateUpdate()
@@ -18,11 +24,16 @@ public class CameraFollower : StandMonoBehaviour
 
         Vector3 targetPosition = PlayerCtrl.Instance.transform.position + offset;
 
-        transform.position = Vector3.SmoothDamp(
+        Vector3 smoothPosition = Vector3.SmoothDamp(
             transform.position,
             targetPosition,
             ref velocity,
             smoothTime
         );
+
+        smoothPosition.x = Mathf.Clamp(smoothPosition.x, minX, maxX);
+        smoothPosition.y = Mathf.Clamp(smoothPosition.y, minY, maxY);
+
+        transform.position = smoothPosition;
     }
 }

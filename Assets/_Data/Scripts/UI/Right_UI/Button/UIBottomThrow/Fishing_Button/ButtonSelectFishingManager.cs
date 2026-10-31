@@ -10,6 +10,13 @@ public class ButtonSelectFishingManager : ButtonSelectItemManager
     [SerializeField]
     private bool _lastAuto = false;
 
+    protected override void ResetValue()
+    {
+        base.ResetValue();
+
+        UpdateFishingObjects(false);
+        UpdateLight(false);
+    }
     private void Update()
     {
         RefreshState();
@@ -33,11 +40,11 @@ public class ButtonSelectFishingManager : ButtonSelectItemManager
 
     private void UpdateFishingObjects(bool into)
     {
-        foreach (GameObject obj in this.transform)
+        foreach (Transform obj in this.transform)
         {
             if (obj == null) continue;
 
-            obj.SetActive(into);
+            obj.gameObject.SetActive(into);
         }
     }
 

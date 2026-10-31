@@ -43,6 +43,8 @@ public class FarmingPlantManager : Singleton<FarmingPlantManager>
         if (this._PlotHightLightPlant != null) return;
 
         this._PlotHightLightPlant = GetComponentInChildren<PlotHightLightPlant>();
+
+        this._PlotHightLightPlant.gameObject.SetActive(false);
     }
 
     protected virtual void LoadFarmAreaCollider2D()

@@ -47,6 +47,12 @@ public class ActiveJoyStick : CanvasCameraBehaviour
     {
         if (Input.touchCount == 0) return;
 
+        if (AreaManager.Instance.LakeFishingManager.IsAutoFishing)
+        {
+            this.ShowHideUIJoyStick(false);
+            return;
+        }    
+
         for (int i = 0; i < Input.touchCount; i++)
         {
             Touch touch = Input.GetTouch(i);
@@ -79,7 +85,7 @@ public class ActiveJoyStick : CanvasCameraBehaviour
             );
 
             // 👉 chỉ bên trái
-            if (localPos.x > 0)
+            if (localPos.y > 0)
                 continue;
 
             // 🟢 BEGIN

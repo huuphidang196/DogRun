@@ -60,10 +60,15 @@ public class PlayerModel : ObjMovementModel
     // ================= ANIMATION =================
     protected virtual void ProcessAnimation()
     {
-        isRun = !_isThrowing && _moveInput != Vector2.zero;
+        bool isFishing = AreaManager.Instance != null &&
+                     AreaManager.Instance.LakeFishingManager != null &&
+                     AreaManager.Instance.LakeFishingManager.IsAutoFishing;
+
+        isRun = !_isThrowing && !isFishing && _moveInput != Vector2.zero;
 
         this._Char_Animator.SetBool("Run", isRun);
         this._Char_Animator.SetBool("Throw", isThrow);
+        this._Char_Animator.SetBool("Fishing", isFishing);
     }
     // 👉 Override: khi đang ném thì KHÔNG cho movement tự flip nữa (giữ hướng đã quay về chó)
     protected override void ProcessFlipModel()

@@ -57,7 +57,7 @@ public class DogVision : DogCtrlAbstract
                 inspectionRange,
                 targetMask);
 
-        if (target == null)
+        if (target == null || this.DogObjCtrl.transform.position.y < 2f)
         {
             ClearTarget();
             return;

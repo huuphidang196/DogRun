@@ -39,7 +39,7 @@ public class DogBrain : DogCtrlAbstract
         this._States.Clear();
 
         this._States.AddRange(GetComponentsInChildren<IDogState>(true));
-        //Debug.Log("State: " + this._States.Count);
+        Debug.Log("State: " + this._States.Count);
     }
 
     protected override void LoadObjCtrl()
@@ -50,7 +50,7 @@ public class DogBrain : DogCtrlAbstract
     }
     public void ChangeState(IDogState newState)
     {
-        if (newState == currentState) return;
+        if (newState == currentState || newState == null) return;
 
         currentState?.Exit();
 
@@ -58,6 +58,8 @@ public class DogBrain : DogCtrlAbstract
 
         currentState.Enter();
         this.DogState = currentState.StateType;
+
+        //Debug.Log("IDog: " + currentState);
     }
     public virtual void ResetWander()
     {
@@ -78,46 +80,64 @@ public class DogBrain : DogCtrlAbstract
 
     protected virtual void ProcessState()
     {
+        // Ưu tiên 1: Stun
         if (this.DogObjCtrl.DogReceiver.IsStun)
         {
             this.ChangeState(this._States.Find(x => x.StateType == DogState.Stun));
             this.ProcessStateStun();
             return;
         }
-        if (this.DogObjCtrl.DogInputData.VisionLevel == VisionLevel.Attack)
-        {
-            this.ChangeState(this._States.Find(x => x.StateType == DogState.Attack));
-            return;
-        }
-        if (this.DogObjCtrl.DogInputData.VisionLevel == VisionLevel.Chase)
-        {
-            this.ChangeState(this._States.Find(x => x.StateType == DogState.Chase));
-            return;
-        }
-        if (this.DogObjCtrl.DogInputData.VisionLevel == VisionLevel.Inspection)
-        {
-            this.ChangeState(this._States.Find(x => x.StateType == DogState.Inspect));
-            return;
-        }
-        //None => 4 case : Idle, patrol, stun, return home
-        //return home
+
         Vector3 pos = this.DogObjCtrl.transform.position;
-        if (!this.DogObjCtrl.DogInputData.HasTarget && !this.DogObjCtrl.DogInputMovement.CheckInsidePatrolArea() || pos.x < -21f && pos.y > 21f)
+
+        // Ưu tiên 2: Return Home nếu Y < -2f
+        if (pos.y < -2f)
         {
             this.ChangeState(this._States.Find(x => x.StateType == DogState.ReturnHome));
             return;
         }
 
-        if (!this.DogObjCtrl.AIPath.reachedDestination && this.DogObjCtrl.DogInputMovement.CheckInsidePatrolArea())
+        // Ưu tiên 3: Attack
+        if (this.DogObjCtrl.DogInputData.VisionLevel == VisionLevel.Attack)
+        {
+            this.ChangeState(this._States.Find(x => x.StateType == DogState.Attack));
+            return;
+        }
+
+        // Ưu tiên 4: Chase
+        if (this.DogObjCtrl.DogInputData.VisionLevel == VisionLevel.Chase)
+        {
+            this.ChangeState(this._States.Find(x => x.StateType == DogState.Chase));
+            return;
+        }
+
+        // Ưu tiên 5: Inspection
+        if (this.DogObjCtrl.DogInputData.VisionLevel == VisionLevel.Inspection)
+        {
+            this.ChangeState(this._States.Find(x => x.StateType == DogState.Inspect));
+            return;
+        }
+
+        // Return Home nếu không có target và ra khỏi Patrol Area
+        if (!this.DogObjCtrl.DogInputData.HasTarget &&
+            !this.DogObjCtrl.DogInputMovement.CheckInsidePatrolArea())
+        {
+            this.ChangeState(this._States.Find(x => x.StateType == DogState.ReturnHome));
+            return;
+        }
+
+        // Patrol
+        if (!this.DogObjCtrl.AIPath.reachedDestination &&
+            this.DogObjCtrl.DogInputMovement.CheckInsidePatrolArea())
         {
             this.ChangeState(this._States.Find(x => x.StateType == DogState.Patrol));
             return;
         }
 
+        // Idle
         this.ChangeState(this._States.Find(x => x.StateType == DogState.Idle));
         this.ProcessStateIdle();
     }
-
     protected virtual void ProcessStateIdle()
     {
         _wanderTimer_State += Time.deltaTime;
