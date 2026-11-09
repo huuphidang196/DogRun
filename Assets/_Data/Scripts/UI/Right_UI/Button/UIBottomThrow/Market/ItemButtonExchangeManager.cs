@@ -33,6 +33,7 @@ public class ItemButtonExchangeManager : StandMonoBehaviour
             _ButtonExchange.onClick.RemoveListener(OnButtonClick);
     }
 
+    #region LoadComponents
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -40,7 +41,7 @@ public class ItemButtonExchangeManager : StandMonoBehaviour
         this.LoadImageLight();
         this.LoadImageItem();
         this.LoadTextNameItem();
-        this.LoadButtonExchange();           
+        this.LoadButtonExchange();
     }
 
     protected virtual void LoadButtonExchange()
@@ -70,6 +71,7 @@ public class ItemButtonExchangeManager : StandMonoBehaviour
         if (_ImageLight != null) return;
         _ImageLight = transform.Find("Image_Light")?.gameObject;
     }
+    #endregion LoadComponents
 
     public virtual void SetManager(ItemExchangeManager manager)
     {
@@ -89,9 +91,9 @@ public class ItemButtonExchangeManager : StandMonoBehaviour
 
     protected virtual void OnButtonClick()
     {
-        if (_ExchangeManager == null) return;
+        if (this._ExchangeManager == null) return;
 
-        _ExchangeManager.SelectItem(this);
+        this._ExchangeManager.SelectItem(this);
     }
 
     public virtual void SetSelected(bool selected)
@@ -99,6 +101,26 @@ public class ItemButtonExchangeManager : StandMonoBehaviour
         if (_ImageLight != null)
             _ImageLight.SetActive(selected);
     }
+    public virtual void SetItemData(ItemExchangeDataSO itemData)
+    {
+        if (itemData == null) return;
 
-    public virtual void SetItemExchangeSO(ItemExchangeDataSO so) => this._ItemDataSO = so;
+        this._ItemDataSO = itemData;
+        this.RefreshUI();
+    }
+
+    public virtual void ResetItem()
+    {
+        this._ItemDataSO = null;
+        this._ExchangeManager = null;
+
+        this.SetSelected(false);
+
+        if (this._ImageItem != null)
+            this._ImageItem.sprite = null;
+
+        if (this._TextNameItem != null)
+            this._TextNameItem.text = string.Empty;
+    }
+
 }

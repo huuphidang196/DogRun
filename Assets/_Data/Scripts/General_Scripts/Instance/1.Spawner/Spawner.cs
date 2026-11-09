@@ -55,9 +55,11 @@ public class Spawner<T> : Singleton<T>, IDespawnable where T : StandMonoBehaviou
     public virtual void DespawnObject(Transform obj)
     {
         if (obj == null) return;
-        if (this._Pool_Object.Contains(obj)) return; // tránh add trùng
+        if (this._Pool_Object.Contains(obj)) return;
 
         obj.gameObject.SetActive(false);
+        obj.SetParent(this.transform, false);
+
         this._Pool_Object.Add(obj);
     }
 
@@ -105,5 +107,34 @@ public class Spawner<T> : Singleton<T>, IDespawnable where T : StandMonoBehaviou
             despawnCtrl.SetSpawner(this);
         }
 
+    }
+
+    public virtual Transform SpawnObject(string name, Transform holder)
+    {
+        Transform obj = this.GetObjectSpawn(name);
+
+        this.SpawnObject(obj, holder);
+
+        return obj;
+    }
+
+    public virtual void SpawnObject(Transform obj, Transform holder)
+    {
+        if (obj == null || holder == null) return;
+
+        obj.SetParent(holder, false);
+        obj.localPosition = Vector3.zero;
+        obj.localRotation = Quaternion.identity;
+        obj.localScale = Vector3.one;
+
+        obj.gameObject.SetActive(true);
+
+        ObjCtrl objCtrl = obj.GetComponent<ObjCtrl>();
+        if (objCtrl == null) return;
+
+        ObjDespawnAbstract despawnCtrl = objCtrl.ObjDespawnAbstract;
+
+        if (despawnCtrl != null)
+            despawnCtrl.SetSpawner(this);
     }
 }

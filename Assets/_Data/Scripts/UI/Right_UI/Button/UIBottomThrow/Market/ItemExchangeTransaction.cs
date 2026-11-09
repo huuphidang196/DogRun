@@ -1,24 +1,27 @@
 ﻿using UnityEngine;
 
-public class ItemExchangeTransaction : StandMonoBehaviour
+public class ItemExchangeTransaction : ContentPurchasingManagerAbstract
 {
-    [Header("References")]
-    [SerializeField] private PlayerInventory _PlayerInventory;
-    [SerializeField] private PlayerWallet _PlayerWallet;
-
     public virtual bool TryExchange(
-        ItemExchangeDataSO itemData,
-        ExchangeMode mode,
-        int amount)
+    ItemExchangeDataSO itemData,
+    ExchangeMode mode,
+    int amount)
     {
         if (itemData == null || amount <= 0)
             return false;
 
-        if (_PlayerInventory == null || _PlayerWallet == null)
+        // Kiểm tra quyền mua/bán của vật phẩm.
+        if (mode == ExchangeMode.Buy && !itemData.CanBuy)
+            return false;
+
+        if (mode == ExchangeMode.Sell && !itemData.CanSell)
+            return false;
+
+        if (PlayerCtrl.Instance.PlayerInventory == null || PlayerCtrl.Instance.PlayerWallet == null)
             return false;
 
         // Kiểm tra Item có tồn tại trong Inventory.
-        if (_PlayerInventory.GetItemDateByType(itemData.ItemType) == null)
+        if (PlayerCtrl.Instance.PlayerInventory.GetItemDateByType(itemData.ItemType) == null)
             return false;
 
         int unitPrice = mode == ExchangeMode.Buy
@@ -42,15 +45,15 @@ public class ItemExchangeTransaction : StandMonoBehaviour
         int totalPrice)
     {
         // Kiểm tra đủ tiền trước.
-        if (!_PlayerWallet.HasEnoughMoney(totalPrice))
+        if (!PlayerCtrl.Instance.PlayerWallet.HasEnoughMoney(totalPrice))
             return false;
 
         // Trừ tiền.
-        if (!_PlayerWallet.SpendMoney(totalPrice))
+        if (!PlayerCtrl.Instance.PlayerWallet.SpendMoney(totalPrice))
             return false;
 
         // Cộng vật phẩm.
-        _PlayerInventory.AddItem(itemData.ItemType, amount);
+        PlayerCtrl.Instance.PlayerInventory.AddItem(itemData.ItemType, amount);
 
         return true;
     }
@@ -61,15 +64,15 @@ public class ItemExchangeTransaction : StandMonoBehaviour
         int totalPrice)
     {
         // Kiểm tra số lượng vật phẩm.
-        if (_PlayerInventory.GetAmount(itemData.ItemType) < amount)
+        if (PlayerCtrl.Instance.PlayerInventory.GetAmount(itemData.ItemType) < amount)
             return false;
 
         // Trừ vật phẩm.
-        if (!_PlayerInventory.RemoveItem(itemData.ItemType, amount))
+        if (!PlayerCtrl.Instance.PlayerInventory.RemoveItem(itemData.ItemType, amount))
             return false;
 
         // Cộng tiền.
-        _PlayerWallet.AddMoney(totalPrice);
+        PlayerCtrl.Instance.PlayerWallet.AddMoney(totalPrice);
 
         return true;
     }

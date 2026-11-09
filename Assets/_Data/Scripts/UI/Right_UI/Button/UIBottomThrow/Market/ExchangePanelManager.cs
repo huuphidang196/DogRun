@@ -3,11 +3,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ExchangePanelManager : StandMonoBehaviour
+public class ExchangePanelManager : ContentPurchasingManagerAbstract
 {
-    [Header("References")]
-    [SerializeField] private ContentPurchasingManager _ContentPurchasingManager;
-
     [Header("Panel")]
     [SerializeField] private GameObject _Panel;
 
@@ -32,22 +29,34 @@ public class ExchangePanelManager : StandMonoBehaviour
     {
         base.OnEnable();
 
-        _ButtonPlus.onClick.AddListener(AddAmount);
-        _ButtonMinus.onClick.AddListener(SubtractAmount);
-        _ButtonConfirm.onClick.AddListener(ConfirmExchange);
-        _ButtonClose.onClick.AddListener(Hide);
+        if (_ButtonPlus != null)
+            _ButtonPlus.onClick.AddListener(AddAmount);
 
-        Hide();
+        if (_ButtonMinus != null)
+            _ButtonMinus.onClick.AddListener(SubtractAmount);
+
+        if (_ButtonConfirm != null)
+            _ButtonConfirm.onClick.AddListener(ConfirmExchange);
+
+        if (_ButtonClose != null)
+            _ButtonClose.onClick.AddListener(ClosePanel);
     }
 
     protected override void OnDisable()
     {
-        base.OnDisable();
+        if (_ButtonPlus != null)
+            _ButtonPlus.onClick.RemoveListener(AddAmount);
 
-        _ButtonPlus.onClick.RemoveListener(AddAmount);
-        _ButtonMinus.onClick.RemoveListener(SubtractAmount);
-        _ButtonConfirm.onClick.RemoveListener(ConfirmExchange);
-        _ButtonClose.onClick.RemoveListener(Hide);
+        if (_ButtonMinus != null)
+            _ButtonMinus.onClick.RemoveListener(SubtractAmount);
+
+        if (_ButtonConfirm != null)
+            _ButtonConfirm.onClick.RemoveListener(ConfirmExchange);
+
+        if (_ButtonClose != null)
+            _ButtonClose.onClick.RemoveListener(ClosePanel);
+
+        base.OnDisable();
     }
 
     #region LoadComponents
@@ -148,12 +157,6 @@ public class ExchangePanelManager : StandMonoBehaviour
             .GetComponent<Button>();
     }
 
-    protected virtual void LoadContentPurchasingManager()
-    {
-        if (this._ContentPurchasingManager != null) return;
-
-        this._ContentPurchasingManager = transform.parent.GetComponent<ContentPurchasingManager>();
-    }
     #endregion LoadComponents
 
     public virtual void Show(ItemExchangeDataSO itemData, ExchangeMode mode)
@@ -169,12 +172,20 @@ public class ExchangePanelManager : StandMonoBehaviour
         _Panel.SetActive(true);
     }
 
-    public virtual void Hide()
+    // Chỉ đóng giao diện, giữ nguyên CurrentItem và Selected Button.
+    public virtual void ClosePanel()
     {
-        if (_Panel != null)
-            _Panel.SetActive(false);
+        if (this._Panel != null)
+            this._Panel.SetActive(false);
+    }
 
-        _CurrentItem = null;
+    public virtual void ResetPanel()
+    {
+        this.ClosePanel();
+
+        this._CurrentItem = null;
+        this._CurrentMode = ExchangeMode.Buy;
+        this._Amount = 1;
     }
 
     protected virtual void AddAmount()
@@ -236,7 +247,8 @@ public class ExchangePanelManager : StandMonoBehaviour
 
     protected virtual void ConfirmExchange()
     {
-        if (_CurrentItem == null || this._ContentPurchasingManager.ItemExchangeTransaction == null)
+        if (_CurrentItem == null ||
+            this._ContentPurchasingManager.ItemExchangeTransaction == null)
             return;
 
         bool success = this._ContentPurchasingManager.ItemExchangeTransaction.TryExchange(
@@ -253,6 +265,6 @@ public class ExchangePanelManager : StandMonoBehaviour
 
         Debug.Log("Giao dịch thành công!");
 
-        Hide();
+        this.ClosePanel();
     }
 }

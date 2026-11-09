@@ -1,20 +1,18 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemExchangeManager : StandMonoBehaviour
+public class ItemExchangeManager : ContentPurchasingManagerAbstract
 {
     [Header("Settings")]
     [SerializeField] private ExchangeMode _ExchangeMode;
 
-    [Header("References")]
-    [SerializeField] private ExchangePanelManager _ExchangePanel;
+    [Header("Item Data")]
+    [SerializeField] protected List<ItemExchangeDataSO> _ItemDatas_SO;
 
     private List<ItemButtonExchangeManager> _ItemButtons = new();
 
-    private List<ItemExchangeDataSO> _ItemExchangeSO;
-
-    private ItemButtonExchangeManager _SelectedItem;
+    protected bool _isSpawned;
 
     protected override void LoadComponents()
     {
@@ -25,67 +23,94 @@ public class ItemExchangeManager : StandMonoBehaviour
     private void LoadListDataExchangeSO()
     {
 
-        if (this._ItemExchangeSO.Count > 0) return;
+        if (this._ItemDatas_SO.Count > 0) return;
 
-        _ItemExchangeSO.Clear();
+        _ItemDatas_SO.Clear();
 
         ItemExchangeDataSO[] itemSOs =
             Resources.LoadAll<ItemExchangeDataSO>("SO/Market/ItemExchange");
 
-        _ItemExchangeSO.AddRange(itemSOs);
+        _ItemDatas_SO.AddRange(itemSOs);
     }
 
 
     protected override void Start()
     {
         base.Start();
-        LoadItemButtons();
+        this.SpawnItems();
     }
 
-    protected virtual void LoadItemButtons()
+    public virtual void SpawnItems()
     {
-        _ItemButtons.Clear();
+        if (this._isSpawned) return;
 
+        ItemButtonExchangeSpawner spawner = ItemButtonExchangeSpawner.Instance;
 
-        _ItemButtons.AddRange(
-            GetComponentsInChildren<ItemButtonExchangeManager>(true)
-        );
-
-        foreach (ItemButtonExchangeManager item in _ItemButtons)
+        if (spawner == null)
         {
+            Debug.LogWarning("ItemButtonExchangeSpawner chưa được khởi tạo.");
+            return;
+        }
+
+        this._ItemButtons.Clear();
+
+        foreach (ItemExchangeDataSO itemData in this._ItemDatas_SO)
+        {
+            if (itemData == null) continue;
+
+            bool canExchange = this._ExchangeMode == ExchangeMode.Buy ? itemData.CanBuy : itemData.CanSell;
+
+            if (!canExchange) continue;
+
+            ItemButtonExchangeManager item = spawner.SpawnItem(
+                itemData,
+                this._ExchangeMode,
+                this
+            );
+
             if (item == null) continue;
 
-            item.SetManager(this);
-            item.SetSelected(false);
+            this._ItemButtons.Add(item);
         }
-    }
 
+        this._isSpawned = true;
+    }
     public virtual void SelectItem(ItemButtonExchangeManager item)
     {
         if (item == null || item.ItemData == null) return;
+        if (this._ContentPurchasingManager == null) return;
 
-        ItemExchangeDataSO data = item.ItemData;
-
-        if (_ExchangeMode == ExchangeMode.Buy && !data.CanBuy)
-            return;
-
-        if (_ExchangeMode == ExchangeMode.Sell && !data.CanSell)
-            return;
-
-        if (_SelectedItem != null)
-            _SelectedItem.SetSelected(false);
-
-        _SelectedItem = item;
-        _SelectedItem.SetSelected(true);
-
-        _ExchangePanel.Show(data, _ExchangeMode);
+        this._ContentPurchasingManager.SelectItem(
+            item,
+            item.ItemData,
+            this._ExchangeMode
+        );
     }
 
-    public virtual void ClearSelection()
+    public virtual void DespawnItems()
     {
-        if (_SelectedItem != null)
-            _SelectedItem.SetSelected(false);
+        if (this._ItemButtons.Count == 0) return;
 
-        _SelectedItem = null;
+        ItemButtonExchangeSpawner spawner =
+            ItemButtonExchangeSpawner.Instance;
+
+        if (spawner == null) return;
+
+        // Chỉ xóa lựa chọn nếu item đang chọn thuộc danh sách này.
+        if (this._ContentPurchasingManager != null)
+        {
+            foreach (ItemButtonExchangeManager item in this._ItemButtons)
+            {
+                this._ContentPurchasingManager.ClearSelection(item);
+            }
+        }
+
+        spawner.DespawnItems(
+            spawner.GetHolder(this._ExchangeMode)
+        );
+
+        this._ItemButtons.Clear();
+        this._isSpawned = false;
     }
+
 }

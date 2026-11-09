@@ -15,6 +15,9 @@ public class PlayerCtrl : ObjCtrl
     [SerializeField] protected PlayerActionManager _PlayerActionManager;
     public PlayerActionManager PlayerActionManager => this._PlayerActionManager;
 
+    [SerializeField] protected PlayerWallet _PlayerWallet;
+    public PlayerWallet PlayerWallet => this._PlayerWallet;
+
     protected override void Awake()
     {
         base.Awake();
@@ -29,6 +32,14 @@ public class PlayerCtrl : ObjCtrl
 
         this.LoadPlayerInventory();
         this.LoadPlayerActionManager();
+        this.LoadPlayerWallet();
+    }
+
+    protected virtual void LoadPlayerWallet()
+    {
+        if (this._PlayerWallet != null) return;
+
+        this._PlayerWallet = GetComponentInChildren<PlayerWallet>();
     }
 
     protected virtual void LoadPlayerActionManager()

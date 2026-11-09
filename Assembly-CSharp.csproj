@@ -110,6 +110,7 @@
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\HideLabelAttribute.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\RequiredAttribute.cs" />
     <Compile Include="Assets\_Data\Scripts\General_Scripts\Reference\ObjInputMovement.cs" />
+    <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Button\UIBottomThrow\Market\ContentPurchasingManagerAbstract.cs" />
     <Compile Include="Assets\_Data\Scripts\General_Scripts\Reference\ObjCtrl.cs" />
     <Compile Include="Assets\_Data\Resources\SO\Tilemap\CropDefinitionSO.cs" />
     <Compile Include="Assets\_Data\Scripts\General_Scripts\Reference\ObjDespawnAbstract.cs" />
