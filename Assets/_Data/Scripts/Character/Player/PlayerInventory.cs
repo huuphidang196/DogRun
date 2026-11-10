@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -175,4 +175,8 @@ public enum ItemType
     HarvestedRice,
     HarvestedCabbage,
     HarvestedPumpkin,
+
+    SuperFishingBait, ///Mồi câu siêu đỉnh
+    AdvancedFishingRod, //Cần câu siêu cấp
+    WaterBottle  //Bình nước
 }

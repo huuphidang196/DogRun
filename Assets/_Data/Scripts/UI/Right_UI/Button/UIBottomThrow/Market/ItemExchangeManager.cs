@@ -6,6 +6,7 @@ public class ItemExchangeManager : ContentPurchasingManagerAbstract
 {
     [Header("Settings")]
     [SerializeField] private ExchangeMode _ExchangeMode;
+    public ExchangeMode ExchangeMode => this._ExchangeMode;
 
     [Header("Item Data")]
     [SerializeField] protected List<ItemExchangeDataSO> _ItemDatas_SO;
@@ -17,22 +18,51 @@ public class ItemExchangeManager : ContentPurchasingManagerAbstract
     protected override void LoadComponents()
     {
         base.LoadComponents();
+        this.LoadExchangeMode();
         this.LoadListDataExchangeSO();
     }
-
-    private void LoadListDataExchangeSO()
+    protected virtual void LoadExchangeMode()
     {
+        string objectName = transform.name.ToLower();
 
-        if (this._ItemDatas_SO.Count > 0) return;
+        if (objectName.StartsWith("sell"))
+            this._ExchangeMode = ExchangeMode.Sell;
+        else if (objectName.StartsWith("buy"))
+            this._ExchangeMode = ExchangeMode.Buy;
+    }
+    protected virtual void LoadListDataExchangeSO()
+    {
+        if (_ItemDatas_SO.Count > 0) return;
 
         _ItemDatas_SO.Clear();
 
+        // Load toàn bộ ItemExchangeDataSO.
         ItemExchangeDataSO[] itemSOs =
             Resources.LoadAll<ItemExchangeDataSO>("SO/Market/ItemExchange");
 
-        _ItemDatas_SO.AddRange(itemSOs);
-    }
+        // Lọc theo ExchangeMode.
+        foreach (ItemExchangeDataSO itemSO in itemSOs)
+        {
+            if (itemSO == null) continue;
 
+            bool canExchange = this._ExchangeMode == ExchangeMode.Buy
+                ? itemSO.CanBuy
+                : itemSO.CanSell;
+
+            if (!canExchange) continue;
+
+            _ItemDatas_SO.Add(itemSO);
+        }
+
+        // Sắp xếp theo số thứ tự trước dấu "." trong tên Asset.
+        _ItemDatas_SO.Sort((a, b) =>
+        {
+            int.TryParse(a.name.Split('.')[0], out int numberA);
+            int.TryParse(b.name.Split('.')[0], out int numberB);
+
+            return numberA.CompareTo(numberB);
+        });
+    }
 
     protected override void Start()
     {

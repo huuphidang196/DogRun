@@ -29845,9 +29845,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2ff88a8c016228499ac8b2cb6e4a003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ContentPurchasingManager: {fileID: 0}
+  _ContentPurchasingManager: {fileID: 532549524}
   _ExchangeMode: 0
-  _ItemDatas_SO: []
+  _ItemDatas_SO:
+  - {fileID: 11400000, guid: 9b31da79f87dbc54588cf8e33b139d59, type: 2}
+  - {fileID: 11400000, guid: feb179e02477f8d44bbb0824da9e977d, type: 2}
+  - {fileID: 11400000, guid: 666d795a051be5a498719a4fabf8f39d, type: 2}
+  - {fileID: 11400000, guid: 7b34a5a786b9e944292fc662859a349d, type: 2}
+  - {fileID: 11400000, guid: c038c3468eb578340abdd146857efb3f, type: 2}
+  - {fileID: 11400000, guid: 22c36462f2077a24c8e6f13d4cb69bc7, type: 2}
+  - {fileID: 11400000, guid: 6b37b40587838bb4eae297bc330ec225, type: 2}
+  - {fileID: 11400000, guid: 961f438f78898e847b0ba7c0db252f32, type: 2}
 --- !u!1 &928231226
 GameObject:
   m_ObjectHideFlags: 0
@@ -32312,9 +32320,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2ff88a8c016228499ac8b2cb6e4a003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ContentPurchasingManager: {fileID: 0}
+  _ContentPurchasingManager: {fileID: 532549524}
   _ExchangeMode: 1
-  _ItemDatas_SO: []
+  _ItemDatas_SO:
+  - {fileID: 11400000, guid: 14ef58a09a233dd4b98a1f572a25b2be, type: 2}
+  - {fileID: 11400000, guid: 86b36c7f0acc36a4eb9fba9c5b821e8b, type: 2}
+  - {fileID: 11400000, guid: ba98b8b626fa3a5448277499e4a1d81c, type: 2}
+  - {fileID: 11400000, guid: 50eb35d4dd0d4774a975e32b52421d15, type: 2}
 --- !u!1 &1109271811
 GameObject:
   m_ObjectHideFlags: 0
@@ -56513,6 +56525,7 @@ MonoBehaviour:
   _ImageLight: {fileID: 1171230711}
   _ImageItem: {fileID: 330683128}
   _TextNameItem: {fileID: 1024769953}
+  _TextExchange: {fileID: 606084602}
   _ButtonExchange: {fileID: 414751388}
 --- !u!1001 &2028143793
 PrefabInstance:

@@ -12,6 +12,7 @@ public class ItemButtonExchangeManager : StandMonoBehaviour
     [SerializeField] private GameObject _ImageLight;
     [SerializeField] private Image _ImageItem;
     [SerializeField] private TMP_Text _TextNameItem;
+    [SerializeField] private TMP_Text _TextExchange;
     [SerializeField] private Button _ButtonExchange;
 
     private ItemExchangeManager _ExchangeManager;
@@ -41,6 +42,7 @@ public class ItemButtonExchangeManager : StandMonoBehaviour
         this.LoadImageLight();
         this.LoadImageItem();
         this.LoadTextNameItem();
+        this.LoadTextExchange();
         this.LoadButtonExchange();
     }
 
@@ -53,7 +55,17 @@ public class ItemButtonExchangeManager : StandMonoBehaviour
         if (buttonTransform != null)
             _ButtonExchange = buttonTransform.GetComponentInChildren<Button>(true);
     }
+    protected virtual void LoadTextExchange()
+    {
+        if (this._TextExchange != null) return;
 
+        Transform textTransform = transform.Find(
+            "Button_Exchange/Content_Exchange"
+        );
+
+        if (textTransform != null)
+            this._TextExchange = textTransform.GetComponent<TMP_Text>();
+    }
     protected virtual void LoadTextNameItem()
     {
         if (_TextNameItem != null) return;
@@ -75,9 +87,19 @@ public class ItemButtonExchangeManager : StandMonoBehaviour
 
     public virtual void SetManager(ItemExchangeManager manager)
     {
-        _ExchangeManager = manager;
+        this._ExchangeManager = manager;
+        this.RefreshExchangeText();
     }
+    protected virtual void RefreshExchangeText()
+    {
+        if (this._TextExchange == null) return;
+        if (this._ExchangeManager == null) return;
 
+        this._TextExchange.text =
+            this._ExchangeManager.ExchangeMode == ExchangeMode.Buy
+            ? "MUA"
+            : "BÁN";
+    }
     protected virtual void RefreshUI()
     {
         if (_ItemDataSO == null) return;
