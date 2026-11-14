@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: 12.CleanWater_Exchange
   m_EditorClassIdentifier: 
   _ItemType: 12
-  _Icon: {fileID: 0}
-  _ItemName: CleanWater_Exchange
-  _BuyPrice: 0
-  _SellPrice: 20
+  _Icon: {fileID: -102820381, guid: d37e77c22c768ee40b4532566dd25750, type: 3}
+  _ItemName_Vie: "N\u01B0\u1EDBc s\u1EA1ch"
+  _ItemName_Eng: Clean Water
+  _BuyPrice: 20
+  _SellPrice: 0
   _CanBuy: 1
   _CanSell: 0

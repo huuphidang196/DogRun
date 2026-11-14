@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: 2.Cabbage_Exchange
   m_EditorClassIdentifier: 
   _ItemType: 8
-  _Icon: {fileID: 0}
-  _ItemName: Cabbage_Exchange
+  _Icon: {fileID: -1111317860, guid: 23eb9dd4603db1c40b6bd3dfac9fe1c2, type: 3}
+  _ItemName_Vie: "B\u1EAFp c\u1EA3i"
+  _ItemName_Eng: Cabbage
   _BuyPrice: 0
   _SellPrice: 150
   _CanBuy: 0

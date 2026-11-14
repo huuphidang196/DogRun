@@ -117,6 +117,7 @@
     <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Reference\ButtonUIActiveParent.cs" />
     <Compile Include="Assets\_Data\Resources\SO\Area\FishingConfigSO.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\GroupAttribute.cs" />
+    <Compile Include="Assets\_Data\Resources\SO\System\SystemConfigSO.cs" />
     <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Button\UIBottomThrow\Fishing_Button\BtnFishingMode.cs" />
     <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Button\UIBottomThrow\Type_ItemButton_Parent\btnSwapItemThrow.cs" />
     <Compile Include="Assets\_Data\Scripts\General_Scripts\Reference\ObjInteraction.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Button\UIBottomPlantManager.cs" />
     <Compile Include="Assets\_Data\Scripts\Item\Item_Throwable\ItemThrowableInteraction.cs" />
     <Compile Include="Assets\_Data\Scripts\Character\Dog\DogInputData.cs" />
+    <Compile Include="Assets\_Data\Scripts\General_Scripts\Instance\GameController.cs" />
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\BlockquoteAttribute.cs" />
     <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Button\UIBottomThrow\Type_ItemButton_Parent\UITypeItemButtonThrowParent.cs" />
     <Compile Include="Assets\Cainos\Pixel Art Platformer - Village Props\Script\BoundingPlatform.cs" />

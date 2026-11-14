@@ -9,7 +9,8 @@ public class ItemExchangeDataSO : ScriptableObject
     [Header("Item")]
     [SerializeField] private ItemType _ItemType;
     [SerializeField] private Sprite _Icon;
-    [SerializeField] private string _ItemName;
+    [SerializeField] private string _ItemName_Vie;
+    [SerializeField] private string _ItemName_Eng;
 
     [Header("Price")]
     [SerializeField] private int _BuyPrice;
@@ -21,7 +22,8 @@ public class ItemExchangeDataSO : ScriptableObject
 
     public ItemType ItemType => _ItemType;
     public Sprite Icon => _Icon;
-    public string ItemName => _ItemName;
+    public string ItemName_Vie => _ItemName_Vie;
+    public string ItemName_Eng => _ItemName_Eng;
 
     public int BuyPrice => _BuyPrice;
     public int SellPrice => _SellPrice;

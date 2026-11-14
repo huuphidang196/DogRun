@@ -14,6 +14,7 @@ public class ExchangePanelManager : ContentPurchasingManagerAbstract
     [SerializeField] private TMP_Text _UnitPrice;
     [SerializeField] private TMP_Text _AmountText;
     [SerializeField] private TMP_Text _TotalPrice;
+    [SerializeField] private TMP_Text _TextExchangeMode;
 
     [Header("Buttons")]
     [SerializeField] private Button _ButtonPlus;
@@ -70,6 +71,7 @@ public class ExchangePanelManager : ContentPurchasingManagerAbstract
         this.LoadUnitPrice();
         this.LoadAmountText();
         this.LoadTotalPrice();
+        this.LoadTextExchangeMode();
 
         this.LoadButtonPlus();
         this.LoadButtonMinus();
@@ -77,7 +79,14 @@ public class ExchangePanelManager : ContentPurchasingManagerAbstract
         this.LoadButtonClose();
         this.LoadContentPurchasingManager();
     }
+    protected virtual void LoadTextExchangeMode()
+    {
+        if (this._TextExchangeMode != null) return;
 
+        this._TextExchangeMode = transform.Find(
+            "Exchange_Panel/Exchange_Information/Text_Exchange_Mode"
+        ).GetComponent<TMP_Text>();
+    }
     protected virtual void LoadPanelExchange()
     {
         if (this._Panel != null) return;
@@ -190,7 +199,7 @@ public class ExchangePanelManager : ContentPurchasingManagerAbstract
 
     protected virtual void AddAmount()
     {
-        if (_Amount == int.MaxValue) return;
+        if (_Amount >= int.MaxValue) return;
 
         _Amount++;
         RefreshUI();
@@ -210,15 +219,29 @@ public class ExchangePanelManager : ContentPurchasingManagerAbstract
 
         int unitPrice = GetUnitPrice();
 
-        _ItemIcon.sprite = _CurrentItem.Icon;
-        _ItemName.text = _CurrentItem.ItemName;
+        if (_ItemIcon != null)
+            _ItemIcon.sprite = _CurrentItem.Icon;
 
-        _UnitPrice.text = unitPrice.ToString();
-        _AmountText.text = _Amount.ToString();
+        if (_ItemName != null)
+            _ItemName.text = _CurrentItem.ItemName_Vie;
+
+        if (_TextExchangeMode != null)
+        {
+            _TextExchangeMode.text = _CurrentMode == ExchangeMode.Buy
+                ? "MUA"
+                : "BÁN";
+        }
+
+        if (_UnitPrice != null)
+            _UnitPrice.text = unitPrice.ToString();
+
+        if (_AmountText != null)
+            _AmountText.text = _Amount.ToString();
 
         long totalPrice = (long)unitPrice * _Amount;
 
-        _TotalPrice.text = totalPrice.ToString();
+        if (_TotalPrice != null)
+            _TotalPrice.text = totalPrice.ToString();
 
         RefreshButtonState();
     }
@@ -232,6 +255,14 @@ public class ExchangePanelManager : ContentPurchasingManagerAbstract
 
     protected virtual void RefreshButtonState()
     {
+        // Minus: Không cho giảm số lượng dưới 1.
+        if (_ButtonMinus != null)
+            _ButtonMinus.interactable = _Amount > 1;
+
+        // Plus: Không cho vượt giới hạn int.
+        if (_ButtonPlus != null)
+            _ButtonPlus.interactable = _Amount < int.MaxValue;
+
         if (_ButtonConfirm == null || _CurrentItem == null)
             return;
 

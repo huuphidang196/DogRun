@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: 1.Rice_Exchange
   m_EditorClassIdentifier: 
   _ItemType: 7
-  _Icon: {fileID: 0}
-  _ItemName: Rice_Exchange
+  _Icon: {fileID: 772271180, guid: 23eb9dd4603db1c40b6bd3dfac9fe1c2, type: 3}
+  _ItemName_Vie: "L\xFAa"
+  _ItemName_Eng: Rice
   _BuyPrice: 0
   _SellPrice: 150
   _CanBuy: 0

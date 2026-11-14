@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: 10.SuperFishingBait_Exchange
   m_EditorClassIdentifier: 
   _ItemType: 10
-  _Icon: {fileID: 0}
-  _ItemName: SuperFishingBait_Exchange
-  _BuyPrice: 0
-  _SellPrice: 350
+  _Icon: {fileID: -1771060626, guid: 23eb9dd4603db1c40b6bd3dfac9fe1c2, type: 3}
+  _ItemName_Vie: "M\u1ED3i c\xE2u si\xEAu \u0111\u1EC9nh"
+  _ItemName_Eng: Super Fishing Bait
+  _BuyPrice: 350
+  _SellPrice: 0
   _CanBuy: 1
   _CanSell: 0

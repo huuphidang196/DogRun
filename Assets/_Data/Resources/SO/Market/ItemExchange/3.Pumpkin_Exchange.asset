@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: 3.Pumpkin_Exchange
   m_EditorClassIdentifier: 
   _ItemType: 9
-  _Icon: {fileID: 0}
-  _ItemName: Pumpkin_Exchange
+  _Icon: {fileID: 279177726, guid: 23eb9dd4603db1c40b6bd3dfac9fe1c2, type: 3}
+  _ItemName_Vie: "B\xED ng\xF4"
+  _ItemName_Eng: Pumpkin
   _BuyPrice: 0
   _SellPrice: 200
   _CanBuy: 0

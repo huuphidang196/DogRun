@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: 6.Banana_Exchange
   m_EditorClassIdentifier: 
   _ItemType: 2
-  _Icon: {fileID: 0}
-  _ItemName: Banana_Exchange
-  _BuyPrice: 0
-  _SellPrice: 400
+  _Icon: {fileID: 262868137, guid: 23eb9dd4603db1c40b6bd3dfac9fe1c2, type: 3}
+  _ItemName_Vie: "Chu\u1ED1i"
+  _ItemName_Eng: Banana
+  _BuyPrice: 400
+  _SellPrice: 0
   _CanBuy: 1
   _CanSell: 0

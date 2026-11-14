@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: 5.Slipper_Exchange
   m_EditorClassIdentifier: 
   _ItemType: 1
-  _Icon: {fileID: 0}
-  _ItemName: Slipper_Exchange
-  _BuyPrice: 0
-  _SellPrice: 500
+  _Icon: {fileID: -1002986297, guid: 23eb9dd4603db1c40b6bd3dfac9fe1c2, type: 3}
+  _ItemName_Vie: "D\xE9p"
+  _ItemName_Eng: Slipper
+  _BuyPrice: 500
+  _SellPrice: 0
   _CanBuy: 1
   _CanSell: 0

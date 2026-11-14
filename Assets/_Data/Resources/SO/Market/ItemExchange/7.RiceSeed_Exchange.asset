@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: 7.RiceSeed_Exchange
   m_EditorClassIdentifier: 
   _ItemType: 4
-  _Icon: {fileID: 0}
-  _ItemName: RiceSeed_Exchange
-  _BuyPrice: 0
-  _SellPrice: 30
+  _Icon: {fileID: 1442174542, guid: 23eb9dd4603db1c40b6bd3dfac9fe1c2, type: 3}
+  _ItemName_Vie: "H\u1EA1t l\xFAa"
+  _ItemName_Eng: Rice Seeds
+  _BuyPrice: 30
+  _SellPrice: 0
   _CanBuy: 1
   _CanSell: 0
