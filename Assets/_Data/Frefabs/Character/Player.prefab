@@ -243,7 +243,8 @@ MonoBehaviour:
   _ObjModel: {fileID: 5274349375391909867}
   _ObjDespawnAbstract: {fileID: 0}
   _PlayerInventory: {fileID: 8534516714360729684}
-  _PlayerActionManager: {fileID: 0}
+  _PlayerActionManager: {fileID: 1151101725432457924}
+  _PlayerWallet: {fileID: 5617232221110016503}
 --- !u!1 &2439449828231921529
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,6 +997,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4351519094405939980}
+  - component: {fileID: 5617232221110016503}
   m_Layer: 24
   m_Name: PlayerWallet
   m_TagString: Untagged
@@ -1018,6 +1020,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7214473595717217632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5617232221110016503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5773645501100220424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebc5aa188c74d764394314f8a75d104d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ObjCtrl: {fileID: 5062525170212452884}
+  _Money: 30
 --- !u!1 &5891422176802571558
 GameObject:
   m_ObjectHideFlags: 0

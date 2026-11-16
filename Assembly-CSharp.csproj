@@ -78,6 +78,7 @@
     <Compile Include="Assets\Cainos\Third Party\Lucid Editor\Runtime\Attributes\HelpBoxAttribute.cs" />
     <Compile Include="Assets\_Data\Scripts\Character\Player\PlayerCtrl.cs" />
     <Compile Include="Assets\_Data\Scripts\Area\AreaManager.cs" />
+    <Compile Include="Assets\_Data\Resources\SO\System\Language\LanguageData.cs" />
     <Compile Include="Assets\_Data\Scripts\Character\Dog\0.DogState\DogReturnHomeState.cs" />
     <Compile Include="Assets\_Data\Scripts\UI\Right_UI\Button\UIBottomThrow\Type_ItemButton_Parent\UITypeItemButtonPlantParent.cs" />
     <Compile Include="Assets\_Data\Scripts\Character\Player\PlayerInventory.cs" />

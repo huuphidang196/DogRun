@@ -15,6 +15,7 @@ public class ExchangePanelManager : ContentPurchasingManagerAbstract
     [SerializeField] private TMP_Text _AmountText;
     [SerializeField] private TMP_Text _TotalPrice;
     [SerializeField] private TMP_Text _TextExchangeMode;
+    [SerializeField] private TMP_Text _TextExchangeNotify;
 
     [Header("Buttons")]
     [SerializeField] private Button _ButtonPlus;
@@ -72,12 +73,23 @@ public class ExchangePanelManager : ContentPurchasingManagerAbstract
         this.LoadAmountText();
         this.LoadTotalPrice();
         this.LoadTextExchangeMode();
+        this.LoadTextExchangeNotify();
 
         this.LoadButtonPlus();
         this.LoadButtonMinus();
         this.LoadButtonConfirm();
         this.LoadButtonClose();
         this.LoadContentPurchasingManager();
+    }
+    protected virtual void LoadTextExchangeNotify()
+    {
+        if (this._TextExchangeNotify != null) return;
+
+        this._TextExchangeNotify = transform.Find(
+            "Exchange_Panel/Exchange_Information/Text_Exchange_Notify").GetComponent<TMP_Text>();
+
+        if (this._TextExchangeNotify != null)
+            this._TextExchangeNotify.gameObject.SetActive(false);
     }
     protected virtual void LoadTextExchangeMode()
     {
@@ -167,23 +179,42 @@ public class ExchangePanelManager : ContentPurchasingManagerAbstract
     }
 
     #endregion LoadComponents
+    protected virtual void ShowExchangeNotify(string message, Color color)
+    {
+        if (this._TextExchangeNotify == null) return;
+
+        this._TextExchangeNotify.text = message;
+        this._TextExchangeNotify.color = color;
+        this._TextExchangeNotify.gameObject.SetActive(true);
+    }
+
+    protected virtual void HideExchangeNotify()
+    {
+        if (this._TextExchangeNotify == null) return;
+
+        this._TextExchangeNotify.text = string.Empty;
+        this._TextExchangeNotify.gameObject.SetActive(false);
+    }
 
     public virtual void Show(ItemExchangeDataSO itemData, ExchangeMode mode)
     {
         if (itemData == null) return;
 
-        _CurrentItem = itemData;
-        _CurrentMode = mode;
-        _Amount = 1;
+        this._CurrentItem = itemData;
+        this._CurrentMode = mode;
+        this._Amount = 1;
 
-        RefreshUI();
+        this.HideExchangeNotify();
+        this.RefreshUI();
 
-        _Panel.SetActive(true);
+        this._Panel.SetActive(true);
     }
 
     // Chỉ đóng giao diện, giữ nguyên CurrentItem và Selected Button.
     public virtual void ClosePanel()
     {
+        this.HideExchangeNotify();
+
         if (this._Panel != null)
             this._Panel.SetActive(false);
     }
@@ -279,23 +310,32 @@ public class ExchangePanelManager : ContentPurchasingManagerAbstract
     protected virtual void ConfirmExchange()
     {
         if (_CurrentItem == null ||
-            this._ContentPurchasingManager.ItemExchangeTransaction == null)
+            _ContentPurchasingManager == null ||
+            _ContentPurchasingManager.ItemExchangeTransaction == null)
             return;
 
-        bool success = this._ContentPurchasingManager.ItemExchangeTransaction.TryExchange(
+        bool success = _ContentPurchasingManager.ItemExchangeTransaction.TryExchange(
             _CurrentItem,
             _CurrentMode,
             _Amount
         );
 
-        if (!success)
+        if (success)
         {
-            Debug.Log("Giao dịch thất bại!");
+            this.ShowExchangeNotify(
+                "Giao dịch của bạn được thực hiện thành công!",
+                Color.green
+            );
+
+            Debug.Log("Giao dịch thành công!");
             return;
         }
 
-        Debug.Log("Giao dịch thành công!");
+        this.ShowExchangeNotify(
+            "Số tiền không đủ để thực hiện giao dịch!",
+            Color.red
+        );
 
-        this.ClosePanel();
+        Debug.Log("Giao dịch thất bại!");
     }
 }

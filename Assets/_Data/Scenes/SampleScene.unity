@@ -3119,7 +3119,7 @@ GameObject:
   - component: {fileID: 190272048}
   - component: {fileID: 190272047}
   m_Layer: 5
-  m_Name: Image_ExMode_BG_Static
+  m_Name: Image_Rep_ExMode_BG_Static
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36737,7 +36737,7 @@ GameObject:
   - component: {fileID: 1294881637}
   - component: {fileID: 1294881636}
   m_Layer: 5
-  m_Name: Image_ExMode_BG_Static_4
+  m_Name: Image_ExMode_BG_Static
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37760,12 +37760,12 @@ GameObject:
   - component: {fileID: 1366729956}
   - component: {fileID: 1366729955}
   m_Layer: 5
-  m_Name: Text_Exchane_Notify
+  m_Name: Text_Exchange_Notify
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1366729954
 RectTransform:
   m_ObjectHideFlags: 0
@@ -44222,6 +44222,7 @@ MonoBehaviour:
   _AmountText: {fileID: 1485249211}
   _TotalPrice: {fileID: 103572261}
   _TextExchangeMode: {fileID: 1838514476}
+  _TextExchangeNotify: {fileID: 1366729955}
   _ButtonPlus: {fileID: 1384537731}
   _ButtonMinus: {fileID: 1806222467}
   _ButtonConfirm: {fileID: 534953279}
